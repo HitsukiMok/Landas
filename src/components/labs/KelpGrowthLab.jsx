@@ -54,15 +54,15 @@ const KelpGrowthLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Ocean Biology Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Help the Kelp Reach the Surface!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Ocean Biology Lab</h2>
+        <p className="text-sm font-bold text-white/90">Help the Kelp Reach the Surface!</p>
       </div>
 
       {/* Main Play Area */}
-      <div className="relative w-full h-80 bg-gradient-to-b from-[#B2D8E8] to-[#2B6CB0]/20 rounded-2xl border-2 border-[#B2D8E8] mb-8 overflow-hidden">
+      <div className="relative w-full h-80 bg-gradient-to-b from-[#B2D8E8] to-[#2B6CB0]/20 rounded-2xl border-2 border-white/30 mb-8 overflow-hidden">
         
         {/* The Surface (Goal Line) */}
         <div className="absolute top-8 w-full border-t-2 border-dashed border-white/50 flex justify-center">
@@ -112,8 +112,8 @@ const KelpGrowthLab = ({ onQuestComplete }) => {
         {/* Sunlight Slider */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-[10px] font-black tracking-widest text-[#718096] uppercase">☀️ Sunlight</span>
-            <span className="text-xs font-bold text-[#4A5568]">{sunlight}%</span>
+            <span className="text-[10px] font-black tracking-widest text-white/60 uppercase">☀️ Sunlight</span>
+            <span className="text-xs font-bold text-white/90">{sunlight}%</span>
           </div>
           <input 
             type="range" 
@@ -128,8 +128,8 @@ const KelpGrowthLab = ({ onQuestComplete }) => {
         {/* Water Slider */}
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-[10px] font-black tracking-widest text-[#718096] uppercase">💧 Nutrient Water</span>
-            <span className="text-xs font-bold text-[#4A5568]">{water}%</span>
+            <span className="text-[10px] font-black tracking-widest text-white/60 uppercase">💧 Nutrient Water</span>
+            <span className="text-xs font-bold text-white/90">{water}%</span>
           </div>
           <input 
             type="range" 
@@ -143,12 +143,12 @@ const KelpGrowthLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl">
           {rekMood === 'thinking' ? '💡' : '🌟'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "Perfect balance! The kelp is thriving." 
               : "Plants need just the right amount of light and water to grow big and strong!"}

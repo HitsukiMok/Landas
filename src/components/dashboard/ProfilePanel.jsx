@@ -20,7 +20,7 @@ export default function ProfilePanel() {
   };
 
   return (
-    <aside id="profile-panel" className="flex flex-col gap-5">
+    <aside id="profile-panel" className="flex flex-col gap-3 h-full">
       {/* ── Learning Profile Card (Dual View) ── */}
       <LearningProfile />
 
@@ -28,14 +28,14 @@ export default function ProfilePanel() {
       <StreakTracker />
 
       {/* ── Biome Selector ── */}
-      <div className="rounded-3xl border border-[#E8E5DF] bg-[#F4F7F6] p-6 shadow-sm">
-        <div className="mb-4 flex items-center gap-2">
-          <Globe className="w-4 h-4 text-[#718096]" />
-          <h3 className="text-sm font-semibold tracking-wide text-[#4A5568]">
+      <div className="rounded-2xl border border-white/20 bg-black/50 backdrop-blur-md border-white/10 p-4 shadow-sm text-white transition-all duration-700">
+        <div className="mb-3 flex items-center gap-2">
+          <Globe className="w-3.5 h-3.5 opacity-80" />
+          <h3 className="text-xs font-bold tracking-wide uppercase opacity-90">
             Environment
           </h3>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5">
           {[
             { key: 'Ocean', label: 'Ocean' },
             { key: 'Tropics', label: 'Tropics' },
@@ -46,16 +46,16 @@ export default function ProfilePanel() {
               <button
                 key={biome.key}
                 onClick={() => setBiome(biome.key)}
-                className={`flex items-center gap-3 rounded-2xl px-4 py-2.5 text-xs font-medium tracking-wider transition-all duration-300 ${
+                className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-[11px] font-bold tracking-widest uppercase transition-all duration-300 ${
                   currentBiome === biome.key
-                    ? 'bg-[#E8F4F8] text-[#4A5568] shadow-sm'
-                    : 'text-[#718096] hover:bg-[#FDFBF7]'
+                    ? 'bg-black/30 shadow-inner ring-1 ring-white/30'
+                    : 'opacity-70 hover:bg-white/10 hover:opacity-100'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-3.5 h-3.5" />
                 {biome.label}
                 {currentBiome === biome.key && (
-                  <span className="ml-auto text-[10px] text-[#81E6D9]">●</span>
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-current opacity-80 shadow-[0_0_5px_currentColor]"></span>
                 )}
               </button>
             );

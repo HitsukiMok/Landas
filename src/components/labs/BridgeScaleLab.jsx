@@ -66,17 +66,17 @@ const BridgeScaleLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Advanced Algebra Lab</h2>
-        <div className="bg-[#F4F7F6] px-4 py-2 rounded-xl text-xs font-bold text-[#4A5568] tracking-widest">
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Advanced Algebra Lab</h2>
+        <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold text-white/90 tracking-widest">
           {leftX}X + {leftUnits} = {rightUnits}
         </div>
       </div>
 
       {/* The Balance Scale Area */}
-      <div className="relative w-full h-64 bg-[#F4F7F6] rounded-2xl border-2 border-[#E8E5DF] mb-8 flex flex-col items-center justify-center overflow-hidden">
+      <div className="relative w-full h-64 bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-white/20 mb-8 flex flex-col items-center justify-center overflow-hidden">
         
         {/* Scale Base */}
         <div className="absolute bottom-4 w-4 h-12 bg-[#718096]/20 rounded-t-full" />
@@ -97,7 +97,7 @@ const BridgeScaleLab = ({ onQuestComplete }) => {
                 <div key={`x-${i}`} className="w-6 h-6 bg-[#81E6D9] rounded-md flex items-center justify-center text-[10px] font-black text-white shadow-sm">X</div>
               ))}
               {[...Array(leftUnits)].map((_, i) => (
-                <div key={`u-l-${i}`} className="w-4 h-4 bg-[#B2D8E8] rounded-sm flex items-center justify-center text-[8px] font-bold text-[#4A5568] shadow-sm">1</div>
+                <div key={`u-l-${i}`} className="w-4 h-4 bg-[#B2D8E8] rounded-sm flex items-center justify-center text-[8px] font-bold text-white/90 shadow-sm">1</div>
               ))}
             </div>
           </div>
@@ -108,7 +108,7 @@ const BridgeScaleLab = ({ onQuestComplete }) => {
             <div className="w-24 h-2 bg-[#718096]/60 rounded-full" />
             <div className="flex flex-wrap justify-center gap-1 mt-1 max-w-[80px]">
               {[...Array(rightUnits)].map((_, i) => (
-                <div key={`u-r-${i}`} className="w-4 h-4 bg-[#B2D8E8] rounded-sm flex items-center justify-center text-[8px] font-bold text-[#4A5568] shadow-sm">1</div>
+                <div key={`u-r-${i}`} className="w-4 h-4 bg-[#B2D8E8] rounded-sm flex items-center justify-center text-[8px] font-bold text-white/90 shadow-sm">1</div>
               ))}
             </div>
           </div>
@@ -125,26 +125,26 @@ const BridgeScaleLab = ({ onQuestComplete }) => {
         <button
           onClick={subtractOne}
           disabled={isSolved}
-          className="py-4 bg-white border-2 border-[#E8E5DF] rounded-2xl text-[10px] font-black tracking-widest text-[#4A5568] uppercase hover:bg-[#F4F7F6] hover:border-[#B2D8E8] transition-all active:scale-95"
+          className="py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl text-[10px] font-black tracking-widest text-white/90 uppercase hover:bg-white/20 hover:border-white/30 transition-all active:scale-95"
         >
           - 1 from BOTH sides
         </button>
         <button
           onClick={divideByTwo}
           disabled={isSolved}
-          className="py-4 bg-white border-2 border-[#E8E5DF] rounded-2xl text-[10px] font-black tracking-widest text-[#4A5568] uppercase hover:bg-[#F4F7F6] hover:border-[#81E6D9] transition-all active:scale-95"
+          className="py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl text-[10px] font-black tracking-widest text-white/90 uppercase hover:bg-white/20 hover:border-[#81E6D9] transition-all active:scale-95"
         >
           ÷ 2 on BOTH sides
         </button>
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl">
           {rekMood === 'thinking' ? '🤔' : rekMood === 'cheering' ? '🌟' : '😮'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {message || (isSolved ? "Great work! You've mastered the balance." : "To find X, we must keep the scale balanced at every step!")}
           </p>
         </div>

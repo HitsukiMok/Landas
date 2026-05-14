@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Globe, Compass, Waves, Trees, Sun, Sparkles } from 'lucide-react';
 import useStore from '../../store/useStore';
 import CoralGatheringLab from '../labs/CoralGatheringLab';
@@ -15,7 +15,6 @@ const BIOMES = {
   Ocean: {
     label: 'Ocean (Elem)',
     sanctuary: 'The Coral Reef',
-    bgColor: 'bg-[#FDFBF7]',
     accentColor: '#B2D8E8',
     quests: [
       { id: 'q1', title: 'Coral Gathering', subject: 'Math', energy: 'low', energyColor: '#C6F6D5', reward: 15, xpType: 'low', labComponent: CoralGatheringLab },
@@ -26,7 +25,6 @@ const BIOMES = {
   Tropics: {
     label: 'Tropics (JHS)',
     sanctuary: 'The Hidden Temple',
-    bgColor: 'bg-[#FDFBF7]',
     accentColor: '#A5D6A7',
     quests: [
       { id: 'q4', title: 'Sunbeam Mirrors', subject: 'Math/Geometry', energy: 'low', energyColor: '#C6F6D5', reward: 15, xpType: 'low', labComponent: SunbeamMirrorsLab },
@@ -37,7 +35,6 @@ const BIOMES = {
   Desert: {
     label: 'Desert (SHS)',
     sanctuary: 'The Hidden Oasis',
-    bgColor: 'bg-[#FDFBF7]',
     accentColor: '#FFCC80',
     quests: [
       { id: 'q7', title: 'Data Flow Routing', subject: 'ICT/Logic', energy: 'low', energyColor: '#C6F6D5', reward: 15, xpType: 'low', labComponent: DataFlowRoutingLab },
@@ -49,12 +46,12 @@ const BIOMES = {
 
 /**
  * QuestMapManager - Visual biome navigation and global co-op expedition tracker.
+ * Refined for a compact, glassmorphic layout.
  */
 const QuestMapManager = ({ onSelectQuest }) => {
   const currentBiome = useStore((s) => s.currentBiome);
   const setBiome = useStore((s) => s.setBiome);
   const xp = useStore((s) => s.xp);
-  const addXP = useStore((s) => s.addXP); // We'll mock a "donation" by subtracting (if we had subtraction) or just visually animating
   
   const [globalXP, setGlobalXP] = useState(8450);
   const [isDonating, setIsDonating] = useState(false);
@@ -63,10 +60,7 @@ const QuestMapManager = ({ onSelectQuest }) => {
 
   const handleDonate = () => {
     if (xp < 10 || isDonating) return;
-    
     setIsDonating(true);
-    // Note: In a real app, we'd have a decrementXP in the store. 
-    // For this mockup, we'll just animate the global bar.
     setTimeout(() => {
       setGlobalXP(prev => prev + 10);
       setIsDonating(false);
@@ -74,102 +68,84 @@ const QuestMapManager = ({ onSelectQuest }) => {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full animate-fade-in">
-      {/* ── Part 2: Co-op Expedition Tracker ── */}
-      <div className="relative overflow-hidden rounded-3xl bg-[#FDFBF7] border border-[#E8E5DF] shadow-sm p-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-          <div className="flex-1">
-            <h2 className="flex items-center gap-2 text-sm font-black tracking-widest text-[#4A5568] uppercase mb-1">
-              <Globe className="w-4 h-4 text-[#81E6D9]" />
-              Global Expedition
-            </h2>
-            <p className="text-[11px] font-medium text-[#718096] leading-relaxed max-w-md">
-              Pool your XP with students across the Philippines to unlock the <span className="text-[#4A5568] font-bold">{biomeData.sanctuary}</span>!
-            </p>
+    <div className="flex-1 flex flex-col gap-3 w-full h-full min-h-0 animate-fade-in">
+      
+      {/* ── Co-op Expedition Tracker (Slim Glass Bar) ── */}
+      <div className="shrink-0 relative overflow-hidden rounded-xl bg-black/50 backdrop-blur-md border-white/10 border border-white/20 shadow-sm p-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-white">
+        
+        <div className="flex items-center gap-3 flex-1 min-w-0 w-full">
+          <div className="p-2 bg-black/30 rounded-lg shrink-0">
+            <Globe className="w-4 h-4 text-[#81E6D9]" />
           </div>
-          
-          <div className="text-right">
-            <span className="text-xs font-black text-[#4A5568] tracking-tighter">
-              {globalXP.toLocaleString()} / 10,000 XP
-            </span>
+          <div className="flex-1 min-w-0">
+            <div className="flex justify-between items-end mb-1.5">
+              <h2 className="text-[10px] font-black tracking-widest uppercase opacity-90 truncate">
+                Global Expedition: {biomeData.sanctuary}
+              </h2>
+              <span className="text-[9px] font-bold text-[#81E6D9] tracking-wider shrink-0 ml-2">
+                {globalXP.toLocaleString()}/10k XP
+              </span>
+            </div>
+            {/* Slim Progress Bar */}
+            <div className="h-1.5 w-full bg-black/20 rounded-full overflow-hidden shadow-inner relative">
+              <div 
+                className="h-full bg-gradient-to-r from-[#81E6D9] to-[#68D391] transition-all duration-1000 ease-out rounded-full"
+                style={{ width: `${(globalXP / 10000) * 100}%` }}
+              />
+              {isDonating && (
+                <div className="absolute top-0 right-0 h-full w-8 bg-white/60 animate-ping rounded-full" />
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Global Progress Bar */}
-        <div className="h-6 w-full bg-[#F4F7F6] rounded-full overflow-hidden shadow-inner mb-6 relative">
-          <div 
-            className="h-full bg-gradient-to-r from-[#81E6D9] to-[#68D391] transition-all duration-1000 ease-out rounded-full"
-            style={{ width: `${(globalXP / 10000) * 100}%` }}
-          />
-          {isDonating && (
-            <div className="absolute top-0 right-0 h-full w-8 bg-white/40 animate-ping rounded-full" />
-          )}
         </div>
 
         <button
           onClick={handleDonate}
           disabled={xp < 10 || isDonating}
           className={`
-            group flex items-center justify-center gap-3 w-full py-3 rounded-2xl text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-300
+            shrink-0 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all duration-300 w-full sm:w-auto
             ${xp >= 10 
-              ? 'bg-white border-2 border-[#81E6D9] text-[#4A5568] hover:bg-[#81E6D9]/10' 
-              : 'bg-[#F4F7F6] text-[#A0AEC0] border-2 border-transparent cursor-not-allowed'}
+              ? 'bg-[#81E6D9] text-[#0f2a24] hover:brightness-110 shadow-[0_0_10px_rgba(129,230,217,0.3)]' 
+              : 'bg-white/5 text-white/30 cursor-not-allowed border border-white/10'}
           `}
         >
           {isDonating ? (
-            <span className="animate-pulse flex items-center gap-2">Sending XP... <Sparkles className="w-3 h-3" /></span>
+            <span className="animate-pulse flex items-center gap-1.5">Sending... <Sparkles className="w-3 h-3" /></span>
           ) : (
             <>
-              <Compass className="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" />
-              Donate 10 XP to the Expedition
+              Donate 10 XP
             </>
           )}
         </button>
       </div>
 
-      {/* ── Part 1: Biome Navigation ── */}
-      <div className={`relative rounded-[2rem] ${biomeData.bgColor} border border-[#E8E5DF] p-8 min-h-[400px] flex flex-col transition-colors duration-700`}>
-        {/* Biome Tabs */}
-        <div className="flex gap-2 mb-12 self-center bg-white/40 p-1.5 rounded-2xl backdrop-blur-sm shadow-sm border border-white/20">
-          {Object.entries(BIOMES).map(([key, data]) => {
-            const Icon = key === 'Ocean' ? Waves : key === 'Tropics' ? Trees : Sun;
-            return (
-              <button
-                key={key}
-                onClick={() => setBiome(key)}
-                className={`
-                  flex items-center gap-2 px-6 py-2.5 rounded-xl text-[10px] font-black tracking-widest uppercase transition-all duration-300
-                  ${currentBiome === key 
-                    ? 'bg-white text-[#4A5568] shadow-md' 
-                    : 'text-[#718096] hover:bg-white/20'}
-                `}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {data.label}
-              </button>
-            );
-          })}
-        </div>
-
+      {/* ── Biome Map Area ── */}
+      <div className={`relative flex-1 rounded-2xl bg-black/50 backdrop-blur-md border-white/10 border border-white/10 p-4 sm:p-6 flex flex-col transition-colors duration-700 overflow-hidden`}>
+        
         {/* Map Area / Quest Nodes */}
-        <div className="relative flex-1 flex items-center justify-around">
+        <div className="relative flex-1 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 py-8">
           {/* Ambient visual background element */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-            <div className="w-64 h-64 rounded-full" style={{ backgroundColor: biomeData.accentColor, filter: 'blur(80px)' }} />
+          <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+            <div className="w-48 h-48 rounded-full" style={{ backgroundColor: biomeData.accentColor, filter: 'blur(80px)' }} />
+          </div>
+
+          {/* Path connectors (Visual decoration) */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20 flex items-center justify-center">
+            <div className="w-3/4 h-1 border-t-2 border-dashed border-white/50" />
           </div>
 
           {biomeData.quests.map((quest, idx) => (
             <div 
               key={quest.id} 
-              className="group relative flex flex-col items-center"
-              style={{ transform: `translateY(${idx % 2 === 0 ? '-20px' : '20px'})` }}
+              className="group relative flex flex-col items-center z-10"
+              style={{ transform: `translateY(${idx % 2 === 0 ? '-15px' : '15px'})` }}
             >
               {/* The Node */}
               <button
                 onClick={() => onSelectQuest && onSelectQuest(quest)}
                 className={`
-                  w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-2xl shadow-lg border-4 border-white transition-all duration-500
-                  hover:scale-110 hover:shadow-xl active:scale-95
+                  w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-xl font-black shadow-[0_0_15px_rgba(255,255,255,0.1)] border-2 border-white/60 transition-all duration-300
+                  hover:scale-110 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95 text-[#1A202C]
                 `}
                 style={{ backgroundColor: quest.energyColor }}
               >
@@ -177,41 +153,29 @@ const QuestMapManager = ({ onSelectQuest }) => {
               </button>
 
               {/* Tooltip (Hover) */}
-              <div className="absolute -top-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
-                <div className="bg-[#FDFBF7] p-3 rounded-2xl shadow-xl border border-[#E8E5DF] whitespace-nowrap">
-                  <p className="text-[10px] font-black tracking-widest text-[#718096] uppercase mb-0.5">{quest.subject}</p>
-                  <p className="text-sm font-bold text-[#4A5568] mb-1">{quest.title}</p>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: quest.energyColor }} />
-                    <span className="text-[10px] font-black text-[#81E6D9]">+{quest.reward} XP</span>
+              <div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
+                <div className="bg-black/50 backdrop-blur-md border-white/10 px-3 py-2 rounded-xl shadow-xl border border-white/20 whitespace-nowrap text-white">
+                  <p className="text-[8px] font-black tracking-widest text-white/60 uppercase mb-0.5">{quest.subject}</p>
+                  <p className="text-xs font-bold text-white mb-1">{quest.title}</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: quest.energyColor }} />
+                    <span className="text-[9px] font-black text-[#81E6D9]">+{quest.reward} XP</span>
                   </div>
                 </div>
-                <div className="w-3 h-3 bg-[#FDFBF7] rotate-45 border-r border-b border-[#E8E5DF] mx-auto -mt-1.5" />
               </div>
 
               {/* Node Title (Always Visible) */}
-              <p className="mt-4 text-[10px] font-black tracking-[0.2em] text-[#4A5568] uppercase text-center max-w-[80px] opacity-60">
+              <p className="absolute -bottom-8 text-[9px] font-bold tracking-widest text-white/80 uppercase text-center w-24">
                 {quest.title}
               </p>
             </div>
           ))}
-
-          {/* Path connectors (Visual decoration) */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" preserveAspectRatio="none">
-            <path 
-              d="M 25% 45% Q 50% 65%, 75% 45%" 
-              stroke="#718096" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeDasharray="8 8" 
-            />
-          </svg>
         </div>
 
         {/* Biome Descriptor */}
-        <div className="mt-12 text-center">
-          <p className="text-xs font-medium italic text-[#718096]">
-            Exploring <span className="font-bold text-[#4A5568]">{biomeData.label}</span> path...
+        <div className="mt-auto pt-4 text-center shrink-0">
+          <p className="text-[10px] font-medium tracking-wide text-white/50">
+            Currently exploring <span className="font-bold text-white/90">{biomeData.label}</span>
           </p>
         </div>
       </div>

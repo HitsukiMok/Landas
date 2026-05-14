@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Heart, Leaf } from 'lucide-react'
+import { Leaf } from 'lucide-react'
 import useStore from '../../store/useStore'
 
 /**
  * SanctuaryMode — a full-screen calming overlay with a
  * "Breathe in... Breathe out..." animation for de-escalation breaks.
+ * Refined for a glassmorphic, immersive experience.
  */
 export default function SanctuaryMode() {
   const sanctuaryActive = useStore((s) => s.sanctuaryActive)
   const toggleSanctuary = useStore((s) => s.toggleSanctuary)
-  const [phase, setPhase] = useState('in') // 'in' | 'hold' | 'out'
-  const [count, setCount] = useState(4)
+  const [phase, setPhase] = useState('out') // Start at 'out' so it mounts small
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     if (!sanctuaryActive) return
@@ -41,9 +42,13 @@ export default function SanctuaryMode() {
       }, durations[p] * 1000)
     }
 
-    startPhase('in')
+    // Small delay to ensure the initial 'out' state renders before transitioning to 'in'
+    const initialDelay = setTimeout(() => {
+      startPhase('in')
+    }, 50)
 
     return () => {
+      clearTimeout(initialDelay)
       clearTimeout(timer)
       clearInterval(countdown)
     }
@@ -58,55 +63,58 @@ export default function SanctuaryMode() {
   }
 
   const circleScale = {
-    in: 'scale-100',
-    hold: 'scale-100',
+    in: 'scale-150',
+    hold: 'scale-150',
     out: 'scale-75',
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FDFBF7]/95 backdrop-blur-md">
-      {/* Ambient circles */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-1/4 h-64 w-64 animate-[float-gentle_10s_ease-in-out_infinite] rounded-full bg-[#81E6D9]/8 blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 h-48 w-48 animate-[float-gentle_13s_ease-in-out_infinite_reverse] rounded-full bg-[#B2D8E8]/10 blur-3xl" />
+    <div className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black/60 backdrop-blur-xl transition-all duration-1000">
+      
+      {/* Ambient glass circles */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden flex items-center justify-center">
+        <div className="absolute h-[600px] w-[600px] animate-[float-gentle_10s_ease-in-out_infinite] rounded-full bg-[#81E6D9]/5 blur-3xl" />
+      </div>
+
+      {/* Mascot / Helper text */}
+      <div className="flex flex-col items-center mb-16 animate-fade-in-up z-10">
+        <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-3xl shadow-inner mb-4">
+          🦎
+        </div>
+        <p className="text-[11px] font-medium tracking-wide text-white/80 text-center max-w-xs leading-relaxed">
+          Looks like our brain energy is shifting.<br />Let's take a quick breather together.
+        </p>
       </div>
 
       {/* Breathing circle */}
-      <div className="relative mb-12 flex items-center justify-center">
+      <div className="relative mb-20 flex items-center justify-center z-10">
         <div
-          className={`h-48 w-48 rounded-full bg-gradient-to-br from-[#81E6D9]/20 to-[#68D391]/10 shadow-inner transition-transform duration-[4000ms] ease-in-out sm:h-56 sm:w-56 ${circleScale[phase]}`}
+          className={`h-40 w-40 rounded-full bg-gradient-to-br from-[#81E6D9]/20 to-[#68D391]/10 shadow-inner border border-[#81E6D9]/30 transition-transform duration-[4000ms] ease-in-out sm:h-48 sm:w-48 ${circleScale[phase]}`}
         />
         <div
-          className={`absolute h-32 w-32 rounded-full bg-gradient-to-br from-[#81E6D9]/30 to-[#68D391]/15 transition-transform duration-[4000ms] ease-in-out sm:h-40 sm:w-40 ${circleScale[phase]}`}
+          className={`absolute h-24 w-24 rounded-full bg-gradient-to-br from-[#81E6D9]/30 to-[#68D391]/20 transition-transform duration-[4000ms] ease-in-out sm:h-32 sm:w-32 ${circleScale[phase]}`}
         />
-        {/* Mascot inside the circle */}
-        <div className={`absolute transition-all duration-[4000ms] ease-in-out ${circleScale[phase]}`}>
-          <img 
-            src="/placeholder-mascot.png" 
-            alt="Calm Mascot" 
-            className="w-24 h-24 sm:w-32 sm:h-32 opacity-80"
-          />
-        </div>
-        <span className="absolute text-4xl font-light tracking-widest text-white drop-shadow-md sm:text-5xl">
-          {count}
+        
+        <span className="absolute text-5xl font-light tracking-widest text-white drop-shadow-md">
+          {count > 0 ? count : ''}
         </span>
       </div>
 
       {/* Phase text */}
-      <p className="mb-2 text-2xl font-semibold tracking-widest text-[#4A5568] sm:text-3xl">
-        {phaseText[phase]}
+      <p className="mb-2 text-xl font-bold tracking-widest text-[#81E6D9] uppercase sm:text-2xl z-10 animate-pulse">
+        {count > 0 ? phaseText[phase] : 'Get ready...'}
       </p>
-      <p className="mb-10 text-sm tracking-wider text-[#A0AEC0]">
-        You're safe here. Take your time.
+      <p className="mb-12 text-[10px] font-bold tracking-widest uppercase text-white/50 z-10">
+        You're safe here.
       </p>
+
       {/* Exit button */}
       <button
-        id="exit-sanctuary-btn"
         onClick={toggleSanctuary}
-        className="flex items-center gap-2 rounded-2xl border border-[#E8E5DF] bg-white px-8 py-4 text-sm font-bold tracking-widest uppercase text-[#4A5568] transition-all duration-300 hover:shadow-xl active:scale-95"
+        className="z-10 flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-6 py-3 text-[10px] font-bold tracking-widest uppercase text-white transition-all duration-300 hover:bg-white/20 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(129,230,217,0.1)]"
       >
-        <Leaf className="w-4 h-4 text-[#81E6D9]" />
-        I'm ready to continue
+        <Leaf className="w-3.5 h-3.5 text-[#81E6D9]" />
+        I'm ready to return
       </button>
     </div>
   )

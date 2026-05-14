@@ -55,18 +55,18 @@ const AtomStackingLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Chemistry & Molecular Lab</h2>
-        <div className="bg-[#E8F4F8] px-6 py-3 rounded-2xl shadow-inner inline-flex flex-col items-center">
-          <span className="text-[8px] font-black text-[#718096] uppercase mb-1">Target Compound Mass</span>
-          <span className="text-3xl font-black text-[#4A5568]">{TARGET_WEIGHT}</span>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Chemistry & Molecular Lab</h2>
+        <div className="bg-white/10 px-6 py-3 rounded-2xl shadow-inner inline-flex flex-col items-center">
+          <span className="text-[8px] font-black text-white/60 uppercase mb-1">Target Compound Mass</span>
+          <span className="text-3xl font-black text-white/90">{TARGET_WEIGHT}</span>
         </div>
       </div>
 
       {/* The Scale Area */}
-      <div className="relative w-full h-64 bg-[#F4F7F6] rounded-2xl border-2 border-[#E8E5DF] mb-8 flex flex-col items-center justify-end p-6 overflow-hidden">
+      <div className="relative w-full h-64 bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-white/20 mb-8 flex flex-col items-center justify-end p-6 overflow-hidden">
         
         {/* Atoms on Scale */}
         <div className="flex flex-wrap justify-center gap-2 mb-4 max-w-[200px]">
@@ -103,29 +103,29 @@ const AtomStackingLab = ({ onQuestComplete }) => {
         <button
           onClick={() => addAtom('O')}
           disabled={isSolved}
-          className="flex-1 p-4 bg-white border-2 border-[#E8E5DF] rounded-2xl flex flex-col items-center gap-2 hover:border-[#FC8181] hover:bg-[#FFF5F5] transition-all group"
+          className="flex-1 p-4 bg-white border-2 border-white/20 rounded-2xl flex flex-col items-center gap-2 hover:border-[#FC8181] hover:bg-[#FFF5F5] transition-all group"
         >
           <div className="w-8 h-8 bg-[#FC8181] rounded-full flex items-center justify-center text-[10px] font-black text-white group-hover:scale-110 transition-transform">O</div>
-          <span className="text-[10px] font-black text-[#4A5568] uppercase">Oxygen (16)</span>
+          <span className="text-[10px] font-black text-white/90 uppercase">Oxygen (16)</span>
         </button>
 
         <button
           onClick={() => addAtom('H')}
           disabled={isSolved}
-          className="flex-1 p-4 bg-white border-2 border-[#E8E5DF] rounded-2xl flex flex-col items-center gap-2 hover:border-[#63B3ED] hover:bg-[#EBF8FF] transition-all group"
+          className="flex-1 p-4 bg-white border-2 border-white/20 rounded-2xl flex flex-col items-center gap-2 hover:border-[#63B3ED] hover:bg-[#EBF8FF] transition-all group"
         >
           <div className="w-8 h-8 bg-[#63B3ED] rounded-full flex items-center justify-center text-[10px] font-black text-white group-hover:scale-110 transition-transform">H</div>
-          <span className="text-[10px] font-black text-[#4A5568] uppercase">Hydrogen (1)</span>
+          <span className="text-[10px] font-black text-white/90 uppercase">Hydrogen (1)</span>
         </button>
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl animate-bounce">
           {rekMood === 'thinking' ? '🔬' : rekMood === 'cheering' ? '✨' : '😮'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "You've synthesized H2O! Water is essential for life." 
               : currentWeight > TARGET_WEIGHT 

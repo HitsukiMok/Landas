@@ -41,20 +41,20 @@ const DataFlowRoutingLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">ICT & Logic Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Route the Flow to the Wheat!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">ICT & Logic Lab</h2>
+        <p className="text-sm font-bold text-white/90">Route the Flow to the Wheat!</p>
       </div>
 
       {/* Main Play Area */}
-      <div className="relative w-full h-80 bg-[#F4F7F6] rounded-2xl border-2 border-[#E8E5DF] mb-8 overflow-hidden p-6">
+      <div className="relative w-full h-80 bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-white/20 mb-8 overflow-hidden p-6">
         
         {/* The Water Source */}
         <div className="absolute top-4 left-1/2 -translate-x-1/2 flex flex-col items-center z-20">
           <div className="w-10 h-10 bg-[#B2D8E8] rounded-xl flex items-center justify-center text-xl shadow-sm">💧</div>
-          <p className="text-[8px] font-black text-[#718096] uppercase mt-1">Source</p>
+          <p className="text-[8px] font-black text-white/60 uppercase mt-1">Source</p>
         </div>
 
         {/* SVG Connections (Paths) */}
@@ -79,10 +79,10 @@ const DataFlowRoutingLab = ({ onQuestComplete }) => {
           onClick={() => toggleGate('A')}
           className={`
             absolute top-20 left-1/2 -translate-x-1/2 w-32 h-10 rounded-xl border-2 flex items-center justify-center gap-2 transition-all duration-300
-            ${gateA ? 'bg-[#C6F6D5] border-[#81E6D9]' : 'bg-white border-[#E8E5DF]'}
+            ${gateA ? 'bg-green-500/30 border-[#81E6D9]' : 'bg-white/10 backdrop-blur-sm border-white/20'}
           `}
         >
-          <span className="text-[10px] font-black text-[#4A5568] tracking-widest uppercase">IF Gate A: {gateA ? 'ON' : 'OFF'}</span>
+          <span className="text-[10px] font-black text-white/90 tracking-widest uppercase">IF Gate A: {gateA ? 'ON' : 'OFF'}</span>
         </button>
 
         {/* Gate B (THEN) */}
@@ -90,36 +90,36 @@ const DataFlowRoutingLab = ({ onQuestComplete }) => {
           onClick={() => toggleGate('B')}
           className={`
             absolute top-44 left-1/2 -translate-x-1/2 w-32 h-10 rounded-xl border-2 flex items-center justify-center gap-2 transition-all duration-300
-            ${gateB ? 'bg-[#C6F6D5] border-[#81E6D9]' : 'bg-white border-[#E8E5DF]'}
+            ${gateB ? 'bg-green-500/30 border-[#81E6D9]' : 'bg-white/10 backdrop-blur-sm border-white/20'}
           `}
         >
-          <span className="text-[10px] font-black text-[#4A5568] tracking-widest uppercase">THEN Gate B: {gateB ? 'ON' : 'OFF'}</span>
+          <span className="text-[10px] font-black text-white/90 tracking-widest uppercase">THEN Gate B: {gateB ? 'ON' : 'OFF'}</span>
         </button>
 
         {/* Targets */}
         <div className="absolute bottom-4 left-4 flex flex-col items-center">
           <div className={`text-4xl transition-all duration-500 ${!gateA ? 'scale-125 brightness-110' : 'opacity-40'}`}>🌵</div>
-          <span className="text-[8px] font-black text-[#718096] uppercase mt-1">Cactus</span>
+          <span className="text-[8px] font-black text-white/60 uppercase mt-1">Cactus</span>
         </div>
 
         <div className="absolute bottom-4 right-4 flex flex-col items-center">
           <div className={`text-4xl transition-all duration-500 ${gateA && !gateB ? 'scale-125 brightness-110' : 'opacity-40'}`}>🌵</div>
-          <span className="text-[8px] font-black text-[#718096] uppercase mt-1">Cactus</span>
+          <span className="text-[8px] font-black text-white/60 uppercase mt-1">Cactus</span>
         </div>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className={`text-4xl transition-all duration-500 ${isSolved ? 'scale-125' : 'opacity-40'}`}>🌾</div>
-          <span className="text-[8px] font-black text-[#718096] uppercase mt-1 font-bold">Wheat</span>
+          <span className="text-[8px] font-black text-white/60 uppercase mt-1 font-bold">Wheat</span>
         </div>
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl">
           {isSolved ? '🎯' : '🤔'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "Brilliant! Logic and water are flowing perfectly to the crops." 
               : "We need the water to reach the Wheat. Try toggling the IF/THEN gates!"}

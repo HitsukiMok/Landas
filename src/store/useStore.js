@@ -37,14 +37,14 @@ const useStore = create((set, get) => ({
   get xpInCurrentLevel() {
     return get().xp % 50
   },
-  
+
   addXP: (questType) => {
     const amount = XP_MAP[questType] || 0;
     const oldLevel = Math.floor(get().xp / 50) + 1;
     const newXP = get().xp + amount;
     const newLevel = Math.floor(newXP / 50) + 1;
-    
-    set({ 
+
+    set({
       xp: newXP,
       lastXPGained: amount,
       didLevelUp: newLevel > oldLevel,
@@ -92,6 +92,8 @@ const useStore = create((set, get) => ({
   // ── Biome / Environment ──
   currentBiome: 'Ocean',
   setBiome: (biome) => set({ currentBiome: biome }),
+  isDarkMode: false,
+  toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
 
   // ── Authentication ──
   isAuthenticated: false,

@@ -5,6 +5,7 @@ import ProfilePanel from '../components/dashboard/ProfilePanel'
 import QuestArea from '../components/dashboard/QuestArea'
 import RekBuddy from '../components/dashboard/RekBuddy'
 import SanctuaryManager from '../components/dashboard/SanctuaryManager'
+import SanctuaryMode from '../components/dashboard/SanctuaryMode'
 import QuestSuccessModal from '../components/dashboard/QuestSuccessModal'
 import QuestRetryModal from '../components/dashboard/QuestRetryModal'
 import { PreferencesPanel } from '../context/ThemeContext'
@@ -18,8 +19,9 @@ export default function Dashboard() {
   const [showSettings, setShowSettings] = useState(false);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative h-screen overflow-hidden flex flex-col">
       {/* Feedback & Preference Overlays */}
+      <SanctuaryMode />
       <QuestSuccessModal />
       <QuestRetryModal />
       
@@ -42,7 +44,7 @@ export default function Dashboard() {
       <BiomeBackground />
 
       {/* Top bar */}
-      <header className="relative z-20 flex items-center justify-between px-6 py-4 sm:px-8">
+      <header className="relative z-20 flex shrink-0 items-center justify-between px-6 py-3 sm:px-8">
         <a href="/" className="flex items-center gap-2.5">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/40 shadow-sm overflow-hidden border border-[#E8E5DF]">
             <img src="/final_logo_docs.png" alt="Landas Logo" className="w-full h-full object-cover" />
@@ -67,7 +69,7 @@ export default function Dashboard() {
 
       {/* Main layout with Sanctuary behavioral monitoring */}
       <SanctuaryManager>
-        <div className="relative z-10 mx-auto grid max-w-6xl gap-6 px-6 pb-24 sm:px-8 lg:grid-cols-[280px_1fr]">
+        <div className="relative z-10 flex-1 mx-auto grid w-full max-w-6xl gap-4 px-4 pb-4 sm:px-6 lg:grid-cols-[240px_1fr] overflow-hidden">
           <ProfilePanel />
           <QuestArea />
         </div>

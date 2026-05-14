@@ -30,7 +30,7 @@ const AntiGravityLab = ({ onQuestComplete }) => {
     // Boundaries
     const ground = Matter.Bodies.rectangle(160, 315, 320, 10, { 
       isStatic: true, 
-      render: { fillStyle: '#E8E5DF' } 
+      render: { fillStyle: '#4A5568' } 
     });
     const ceiling = Matter.Bodies.rectangle(160, 5, 320, 10, { 
       isStatic: true, 
@@ -100,30 +100,30 @@ const AntiGravityLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-4 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Physics & Mass Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Reach the Target Zone!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Physics & Mass Lab</h2>
+        <p className="text-sm font-bold text-white/90">Reach the Target Zone!</p>
       </div>
 
       {/* Target Zone Indicator */}
       <div className="w-full bg-[#81E6D9]/20 py-2 rounded-t-xl text-center border-x-2 border-t-2 border-[#81E6D9]/40">
-        <span className="text-[8px] font-black tracking-widest text-[#4A5568] uppercase">Target Zone</span>
+        <span className="text-[8px] font-black tracking-widest text-white/90 uppercase">Target Zone</span>
       </div>
 
       {/* Matter.js Canvas Container */}
       <div 
         ref={sceneRef} 
-        className="w-full aspect-square bg-[#F4F7F6] border-x-2 border-b-2 border-[#E8E5DF] rounded-b-2xl overflow-hidden shadow-inner mb-6"
+        className="w-full aspect-square bg-white/10 backdrop-blur-sm border-x-2 border-b-2 border-white/20 rounded-b-2xl overflow-hidden shadow-inner mb-6"
       />
 
       {/* Gravity Slider */}
       <div className="w-full space-y-4 mb-6 px-4">
         <div className="flex justify-between items-center">
-          <span className="text-[10px] font-black tracking-widest text-[#718096] uppercase">Gravity Force</span>
+          <span className="text-[10px] font-black tracking-widest text-white/60 uppercase">Gravity Force</span>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-black text-[#4A5568]">{gravity.toFixed(1)} G</span>
+            <span className="text-xs font-black text-white/90">{gravity.toFixed(1)} G</span>
           </div>
         </div>
         <input 
@@ -142,12 +142,12 @@ const AntiGravityLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl animate-bounce">
           {isSolved ? '🚀' : '⚖️'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "Zero G achieved! All objects have reached the target zone." 
               : "What happens if gravity pulls UP instead of DOWN? Adjust the slider to find out!"}

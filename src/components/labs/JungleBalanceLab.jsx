@@ -73,17 +73,17 @@ const JungleBalanceLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Ecosystem Balance Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Balance the Food Chain!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Ecosystem Balance Lab</h2>
+        <p className="text-sm font-bold text-white/90">Balance the Food Chain!</p>
       </div>
 
       {/* Health Meter Area */}
-      <div className="relative w-full h-48 bg-[#F4F7F6] rounded-2xl border-2 border-[#E8E5DF] mb-8 flex flex-col items-center justify-end p-6 overflow-hidden">
+      <div className="relative w-full h-48 bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-white/20 mb-8 flex flex-col items-center justify-end p-6 overflow-hidden">
         {/* Semi-circle meter background */}
-        <div className="absolute bottom-[-60px] w-64 h-64 border-[16px] border-[#E8E5DF] rounded-full" />
+        <div className="absolute bottom-[-60px] w-64 h-64 border-[16px] border-white/20 rounded-full" />
         <div 
           className="absolute bottom-[-60px] w-64 h-64 border-[16px] border-transparent rounded-full"
           style={{ 
@@ -100,7 +100,7 @@ const JungleBalanceLab = ({ onQuestComplete }) => {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#4A5568] rounded-full" />
         </div>
 
-        <div className="z-10 text-[10px] font-black tracking-widest text-[#718096] uppercase">Ecosystem Health</div>
+        <div className="z-10 text-[10px] font-black tracking-widest text-white/60 uppercase">Ecosystem Health</div>
       </div>
 
       {/* Visual Representation Area */}
@@ -135,21 +135,21 @@ const JungleBalanceLab = ({ onQuestComplete }) => {
         <button
           onClick={() => addItem('P')}
           disabled={isSolved}
-          className="py-3 bg-white border border-[#E8E5DF] rounded-2xl text-[10px] font-black text-[#4A5568] uppercase hover:bg-[#F0FFF4] hover:border-[#C6F6D5] transition-all"
+          className="py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-[10px] font-black text-white/90 uppercase hover:bg-green-500/20 hover:border-green-400 transition-all"
         >
           + Plant
         </button>
         <button
           onClick={() => addItem('H')}
           disabled={isSolved}
-          className="py-3 bg-white border border-[#E8E5DF] rounded-2xl text-[10px] font-black text-[#4A5568] uppercase hover:bg-[#FFF5F5] hover:border-[#FED7D7] transition-all"
+          className="py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-[10px] font-black text-white/90 uppercase hover:bg-red-500/20 hover:border-red-400 transition-all"
         >
           + Herbivore
         </button>
         <button
           onClick={() => addItem('C')}
           disabled={isSolved}
-          className="py-3 bg-white border border-[#E8E5DF] rounded-2xl text-[10px] font-black text-[#4A5568] uppercase hover:bg-[#FFFBEB] hover:border-[#FEFCBF] transition-all"
+          className="py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-[10px] font-black text-white/90 uppercase hover:bg-yellow-500/20 hover:border-yellow-400 transition-all"
         >
           + Carnivore
         </button>
@@ -158,18 +158,18 @@ const JungleBalanceLab = ({ onQuestComplete }) => {
       {/* Reset Button (Zero Penalty approach) */}
       <button
         onClick={reset}
-        className="w-full py-2 mb-6 text-[8px] font-black tracking-widest text-[#A0AEC0] uppercase hover:text-[#718096] transition-all"
+        className="w-full py-2 mb-6 text-[8px] font-black tracking-widest text-[#A0AEC0] uppercase hover:text-white/60 transition-all"
       >
         ↺ Reset Ecosystem
       </button>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl">
           {rekMood === 'thinking' ? '🦊' : rekMood === 'cheering' ? '🌳' : '⚠️'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "Wonderful! The ecosystem is perfectly balanced." 
               : rekMood === 'oops' 

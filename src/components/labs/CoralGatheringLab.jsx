@@ -53,29 +53,28 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
     if (isSolved) return;
 
     setInteractionCount(prev => prev + 1);
-    setShells(prev => prev.map(s => {
-      if (s.id === id) {
-        const newState = !s.inBasket;
-        setBasketCount(curr => newState ? curr + 1 : curr - 1);
-        return { ...s, inBasket: newState };
-      }
-      return s;
-    }));
+    setShells(prev => {
+      const updated = prev.map(s =>
+        s.id === id ? { ...s, inBasket: !s.inBasket } : s
+      );
+      setBasketCount(updated.filter(s => s.inBasket).length);
+      return updated;
+    });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header / Target */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-2">Ocean Expedition</h2>
-        <div className="inline-flex items-center justify-center bg-[#E8F4F8] rounded-2xl px-6 py-3 shadow-inner">
-          <span className="text-xs font-bold text-[#4A5568] tracking-widest mr-3">COLLECT:</span>
-          <span className="text-3xl font-black text-[#4A5568]">{target}</span>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-2">Ocean Expedition</h2>
+        <div className="inline-flex items-center justify-center bg-white/10 rounded-2xl px-6 py-3 shadow-inner">
+          <span className="text-xs font-bold text-white/90 tracking-widest mr-3">COLLECT:</span>
+          <span className="text-3xl font-black text-white/90">{target}</span>
         </div>
       </div>
 
       {/* Main Play Area */}
-      <div className="relative w-full aspect-square bg-[#F4F7F6] rounded-2xl border-2 border-dashed border-[#B2D8E8] mb-6 overflow-hidden">
+      <div className="relative w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-dashed border-white/30 mb-6 overflow-hidden">
 
         {/* Scattered Shells (Top Area) */}
         <div className="absolute top-0 left-0 w-full h-1/2 p-4">
@@ -97,12 +96,12 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
 
         {/* The Basket (Bottom Area) */}
         <div className={`
-          absolute bottom-8 left-1/2 -translate-x-1/2 w-48 h-32 bg-[#D4EAF5]/40 border-4 border-[#B2D8E8] rounded-b-3xl rounded-t-lg flex flex-wrap content-center justify-center gap-2 p-4 transition-all duration-300
+          absolute bottom-8 left-1/2 -translate-x-1/2 w-48 h-32 bg-white/10 border-4 border-white/30 rounded-b-3xl rounded-t-lg flex flex-wrap content-center justify-center gap-2 p-4 transition-all duration-300
           ${rekMood === 'oops' ? 'animate-shake' : ''}
           ${isSolved ? 'bg-[#C6F6D5]/30 border-[#81E6D9]' : ''}
         `}>
           {/* Label */}
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-black tracking-widest text-[#718096] uppercase">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-black tracking-widest text-white/60 uppercase">
             Your Basket: {basketCount}
           </div>
 
@@ -131,12 +130,12 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Rek Mascot & Feedback */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl animate-bounce">
           {rekMood === 'thinking' ? '🤔' : rekMood === 'cheering' ? '🎉' : '😮'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {rekMood === 'thinking' ? "Can you help me find exactly " + target + " shells for our collection?" :
               rekMood === 'cheering' ? "Great counting! We have enough shells now." :
                 "Oops! That's a few too many. Let's take some back out."}

@@ -30,37 +30,44 @@ export default function QuestArea() {
   }
 
   return (
-    <section id="quest-area" className="flex flex-col gap-4">
-      <div className="mb-1">
-        <h2 className="text-xl font-bold tracking-wide text-[#4A5568]">
-          🗺️ Quest Map
-        </h2>
-        <p className="mt-1 text-xs tracking-wide text-[#718096]">
-          Explore biomes and join the global expedition
-        </p>
+    <>
+      <section id="quest-area" className="flex flex-col h-full overflow-hidden rounded-3xl border border-white/20 bg-black/50 backdrop-blur-md border-white/10 p-4 sm:p-6 shadow-sm">
+        <div className="mb-4 flex items-center justify-between shrink-0">
+        <div>
+          <h2 className="text-lg font-bold tracking-wide text-white flex items-center gap-2">
+            🗺️ Quest Map
+          </h2>
+          <p className="text-[10px] tracking-wide text-white/70">
+            Explore biomes & join the expedition
+          </p>
+        </div>
       </div>
       
       {/* Visual Map Interface */}
       <QuestMapManager onSelectQuest={handleStartQuest} />
 
+      </section>
+
       {/* Lab Overlay */}
       {activeQuest && activeQuest.labComponent && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#FDFBF7]/90 backdrop-blur-sm p-4 sm:p-8">
-          <div className="relative w-full max-w-xl animate-fade-in-up">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-fade-in">
+          <div className="relative w-full max-w-lg h-full max-h-[600px] animate-fade-in-up bg-[#1A202C] rounded-2xl border border-white/20 shadow-2xl overflow-y-auto">
             <button 
               onClick={() => setActiveQuest(null)}
-              className="absolute -top-10 right-0 text-[#718096] hover:text-[#4A5568] font-bold text-[10px] tracking-widest uppercase bg-white/50 px-3 py-1 rounded-full"
+              className="sticky top-2 float-right mr-2 z-50 text-white/50 hover:text-white font-bold text-[9px] tracking-widest uppercase bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full transition-colors"
             >
               ✕ Cancel
             </button>
             
-            <activeQuest.labComponent 
-              onQuestComplete={(telemetry) => completeQuest(activeQuest, telemetry)} 
-            />
+            <div className="p-4 sm:p-6">
+              <activeQuest.labComponent 
+                onQuestComplete={(telemetry) => completeQuest(activeQuest, telemetry)} 
+              />
+            </div>
           </div>
         </div>
       )}
-    </section>
+    </>
   )
 }
 
