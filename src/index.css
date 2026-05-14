@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ── Landas Nature Theme Design Tokens ── */
+@theme {
+  /* Greens */
+  --color-leaf: #2F5D1F;
+  --color-leaf-light: #3D7A28;
+  --color-leaf-dark: #1E3E12;
+  --color-leaf-deeper: #162D0D;
+  --color-leaf-card: #234A16;
+  --color-leaf-input: #1B3D10;
+  --color-leaf-nav: #25501A;
+
+  /* Yellows */
+  --color-gold: #F5D623;
+  --color-gold-light: #FFED6F;
+  --color-gold-soft: #E8C819;
+  --color-gold-dim: #C9A700;
+
+  /* Accents */
+  --color-bark: #3E2723;
+  --color-bark-light: #5D4037;
+  --color-cream-warm: #FFF8E1;
+
+  /* Shadows */
+  --color-shadow-green: rgba(30, 62, 18, 0.5);
+  --color-shadow-dark: rgba(0, 0, 0, 0.3);
+
+  /* Font */
+  --font-outfit: "Outfit", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Base Styles ── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-outfit);
+  background-color: var(--color-leaf);
+  color: var(--color-gold);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ── Gradient Title ── */
+.text-landas-gradient {
+  background: linear-gradient(135deg, #F5D623 0%, #A8D84E 50%, #4CAF50 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 8px rgba(30, 62, 18, 0.7));
+}
+
+/* ── Floating Leaf Shapes ── */
+@keyframes leaf-float-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(15px, -20px) rotate(5deg); }
+  50% { transform: translate(-10px, -35px) rotate(-3deg); }
+  75% { transform: translate(20px, -15px) rotate(7deg); }
+}
+
+@keyframes leaf-float-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-20px, 15px) rotate(-8deg); }
+  66% { transform: translate(10px, -25px) rotate(4deg); }
+}
+
+@keyframes leaf-float-3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(25px, -20px) rotate(10deg) scale(1.05); }
+}
+
+.leaf-float-1 {
+  animation: leaf-float-1 12s ease-in-out infinite;
+}
+
+.leaf-float-2 {
+  animation: leaf-float-2 16s ease-in-out infinite;
+}
+
+.leaf-float-3 {
+  animation: leaf-float-3 10s ease-in-out infinite;
+}
+
+.leaf-float-4 {
+  animation: leaf-float-2 14s ease-in-out infinite reverse;
+}
+
+.leaf-float-5 {
+  animation: leaf-float-1 9s ease-in-out infinite reverse;
+}
+
+/* ── Gentle Animations ── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.6s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slide-in-left 0.7s ease-out forwards;
+}
+
+.animate-slide-right {
+  animation: slide-in-right 0.7s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+/* ── Focus Styles ── */
+*:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-leaf-dark);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-leaf-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-leaf-light);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dim);
+}
