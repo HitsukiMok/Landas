@@ -242,7 +242,7 @@ export default function AboutView() {
                     {barrier.icon}
                   </div>
                   <h3 className="text-lg font-bold tracking-wide text-gold">{barrier.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gold/70">{barrier.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-gold/70 text-justify">{barrier.description}</p>
                 </div>
               </div>
             ))}
