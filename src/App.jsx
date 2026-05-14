@@ -10,6 +10,7 @@ import AboutView from './components/AboutView'
 import ContactView from './components/ContactView'
 import FloatingLeaves from './components/FloatingLeaves'
 import Navbar from './components/Navbar'
+import ScrollXPBar from './components/ScrollXPBar'
 
 // Private Pages (Dashboard Branch)
 import Dashboard from './pages/Dashboard'
@@ -34,15 +35,23 @@ function PublicRoute({ children }) {
 
 /**
  * PublicLayout - Wraps public pages to provide the Navbar and leaf background effects.
+ * When `staticView` is true, locks to viewport height with no scroll (for landing page).
  */
-function PublicLayout({ children }) {
+function PublicLayout({ children, staticView = false }) {
   return (
-    <div className="relative min-h-screen bg-leaf overflow-hidden">
+    <div
+      className={`relative bg-leaf-dark ${
+        staticView
+          ? 'h-screen overflow-hidden'
+          : 'min-h-screen overflow-hidden'
+      }`}
+    >
       <FloatingLeaves />
       <Navbar />
       <div className="relative z-10">
         {children}
       </div>
+      {!staticView && <ScrollXPBar />}
     </div>
   )
 }
@@ -52,7 +61,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* ── Public Routes (Home & Informational) ── */}
-        <Route path="/" element={<PublicLayout><LandingPage /></PublicLayout>} />
+        <Route path="/" element={<PublicLayout staticView><LandingPage /></PublicLayout>} />
         <Route path="/about" element={<PublicLayout><AboutView /></PublicLayout>} />
         <Route path="/contact" element={<PublicLayout><ContactView /></PublicLayout>} />
 
@@ -61,7 +70,7 @@ export default function App() {
           path="/login" 
           element={
             <PublicRoute>
-              <PublicLayout>
+              <PublicLayout staticView>
                 <LoginView />
               </PublicLayout>
             </PublicRoute>
@@ -71,7 +80,7 @@ export default function App() {
           path="/sign-up" 
           element={
             <PublicRoute>
-              <PublicLayout>
+              <PublicLayout staticView>
                 <SignUpView />
               </PublicLayout>
             </PublicRoute>

@@ -28,9 +28,8 @@ function Section({ children, className = '', id }) {
     <section
       id={id}
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      } ${className}`}
+      className={`transition-all duration-700 ease-out ${inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        } ${className}`}
     >
       {children}
     </section>
@@ -74,10 +73,9 @@ function ContactForm() {
   }
 
   const inputClasses = (field) =>
-    `w-full rounded-xl border bg-leaf-input/60 px-4 py-3 text-gold placeholder-gold/40 outline-none transition-all duration-300 ${
-      focused === field
-        ? 'border-gold/40 shadow-[0_0_0_3px_rgba(245,214,35,0.08)]'
-        : 'border-gold/10 hover:border-gold/20'
+    `w-full rounded-xl border bg-leaf-input/60 px-4 py-3 text-gold placeholder-gold/40 outline-none transition-all duration-300 ${focused === field
+      ? 'border-gold/40 shadow-[0_0_0_3px_rgba(245,214,35,0.08)]'
+      : 'border-gold/10 hover:border-gold/20'
     }`
 
   return (
@@ -283,7 +281,7 @@ export default function ContactView() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gold">Email</h4>
-                  <p className="mt-1 text-sm text-gold/60">hello@landas.edu.ph</p>
+                  <p className="mt-1 text-sm text-gold/60">Landas.Org@gmail.com</p>
                 </div>
               </div>
 
@@ -296,7 +294,7 @@ export default function ContactView() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gold">Location</h4>
-                  <p className="mt-1 text-sm text-gold/60">Philippines</p>
+                  <p className="mt-1 text-sm text-gold/60">Manila, Philippines</p>
                 </div>
               </div>
 

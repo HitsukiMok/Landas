@@ -1,33 +1,40 @@
 @import "tailwindcss";
 
-/* ── Landas Nature Theme Design Tokens ── */
+/* ── Landas Enchanted Forest Design Tokens ── */
 @theme {
-  /* Greens */
-  --color-leaf: #2F5D1F;
-  --color-leaf-light: #3D7A28;
-  --color-leaf-dark: #1E3E12;
-  --color-leaf-deeper: #162D0D;
-  --color-leaf-card: #234A16;
-  --color-leaf-input: #1B3D10;
-  --color-leaf-nav: #25501A;
+  /* Deep Forest Greens */
+  --color-leaf: #1a3a12;
+  --color-leaf-light: #2d5e1e;
+  --color-leaf-dark: #0f2409;
+  --color-leaf-deeper: #0a1a06;
+  --color-leaf-card: #1c3f13;
+  --color-leaf-input: #152e0e;
+  --color-leaf-nav: #1e4215;
 
-  /* Yellows */
-  --color-gold: #F5D623;
-  --color-gold-light: #FFED6F;
-  --color-gold-soft: #E8C819;
-  --color-gold-dim: #C9A700;
+  /* Warm Forest Golds (muted, magical) */
+  --color-gold: #d4b96a;
+  --color-gold-light: #e8d49a;
+  --color-gold-soft: #c4a854;
+  --color-gold-dim: #a08840;
 
-  /* Accents */
+  /* Forest Wood & Earth */
   --color-bark: #3E2723;
   --color-bark-light: #5D4037;
+  --color-bark-warm: #6D4C41;
   --color-cream-warm: #FFF8E1;
 
-  /* Shadows */
-  --color-shadow-green: rgba(30, 62, 18, 0.5);
-  --color-shadow-dark: rgba(0, 0, 0, 0.3);
+  /* Magical accents */
+  --color-firefly: #e8dca0;
+  --color-moss: #4a7a3a;
+  --color-fern: #3d6b2e;
 
-  /* Font */
+  /* Shadows */
+  --color-shadow-green: rgba(15, 36, 9, 0.6);
+  --color-shadow-dark: rgba(0, 0, 0, 0.4);
+
+  /* Fonts */
   --font-outfit: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-magical: "Cormorant Garamond", "Georgia", serif;
 }
 
 /* ── Base Styles ── */
@@ -41,7 +48,7 @@ html {
 
 body {
   font-family: var(--font-outfit);
-  background-color: var(--color-leaf);
+  background-color: var(--color-leaf-dark);
   color: var(--color-gold);
   line-height: 1.75;
   letter-spacing: 0.02em;
@@ -52,16 +59,21 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Gradient Title ── */
+/* ── Magical Gradient Title ── */
 .text-landas-gradient {
-  background: linear-gradient(135deg, #F5D623 0%, #A8D84E 50%, #4CAF50 100%);
+  background: linear-gradient(135deg, #d4b96a 0%, #8fb87a 50%, #5a9e52 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 8px rgba(30, 62, 18, 0.7));
+  filter: drop-shadow(0 2px 12px rgba(212, 185, 106, 0.3));
 }
 
-/* ── Floating Leaf Shapes ── */
+/* ── Magical heading font ── */
+.font-magical {
+  font-family: var(--font-magical);
+}
+
+/* ── Floating Leaf Animations ── */
 @keyframes leaf-float-1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(15px, -20px) rotate(5deg); }
@@ -80,24 +92,80 @@ body {
   50% { transform: translate(25px, -20px) rotate(10deg) scale(1.05); }
 }
 
-.leaf-float-1 {
-  animation: leaf-float-1 12s ease-in-out infinite;
+.leaf-float-1 { animation: leaf-float-1 12s ease-in-out infinite; }
+.leaf-float-2 { animation: leaf-float-2 16s ease-in-out infinite; }
+.leaf-float-3 { animation: leaf-float-3 10s ease-in-out infinite; }
+.leaf-float-4 { animation: leaf-float-2 14s ease-in-out infinite reverse; }
+.leaf-float-5 { animation: leaf-float-1 9s ease-in-out infinite reverse; }
+
+/* ── Falling Leaf Animation ── */
+@keyframes leaf-fall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 0.8; }
+  100% {
+    transform: translateY(110vh) translateX(80px) rotate(720deg);
+    opacity: 0;
+  }
 }
 
-.leaf-float-2 {
-  animation: leaf-float-2 16s ease-in-out infinite;
+@keyframes leaf-fall-alt {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% {
+    transform: translateY(110vh) translateX(-60px) rotate(-540deg);
+    opacity: 0;
+  }
 }
 
-.leaf-float-3 {
-  animation: leaf-float-3 10s ease-in-out infinite;
+@keyframes leaf-sway {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(20px); }
+  75% { transform: translateX(-20px); }
 }
 
-.leaf-float-4 {
-  animation: leaf-float-2 14s ease-in-out infinite reverse;
+/* ── Sparkle / Firefly Animations ── */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
 }
 
-.leaf-float-5 {
-  animation: leaf-float-1 9s ease-in-out infinite reverse;
+@keyframes firefly-drift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: 0.8; }
+  50% { transform: translate(30px, -40px); opacity: 1; }
+  85% { opacity: 0.6; }
+  100% { transform: translate(-20px, -80px); opacity: 0; }
+}
+
+@keyframes firefly-pulse {
+  0%, 100% { opacity: 0.2; box-shadow: 0 0 4px 1px rgba(232, 220, 160, 0.3); }
+  50% { opacity: 1; box-shadow: 0 0 12px 4px rgba(232, 220, 160, 0.6); }
+}
+
+/* ── Light Ray Animation ── */
+@keyframes light-ray-shift {
+  0%, 100% { opacity: 0.04; transform: rotate(-25deg) translateX(0); }
+  50% { opacity: 0.08; transform: rotate(-25deg) translateX(30px); }
+}
+
+@keyframes light-ray-pulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.07; }
+}
+
+/* ── Fog / Mist drift ── */
+@keyframes mist-drift {
+  0% { transform: translateX(-20%) translateY(0); opacity: 0.3; }
+  50% { transform: translateX(5%) translateY(-10px); opacity: 0.5; }
+  100% { transform: translateX(-20%) translateY(0); opacity: 0.3; }
 }
 
 /* ── Dashboard: Float Animation ── */
@@ -157,6 +225,17 @@ body {
 .delay-300 { animation-delay: 0.3s; opacity: 0; }
 .delay-400 { animation-delay: 0.4s; opacity: 0; }
 
+/* ── Carousel Slide Animations ── */
+@keyframes carousel-slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes carousel-slide-in-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* ── Focus Styles ── */
 *:focus-visible {
   outline: 2px solid var(--color-gold);
@@ -170,17 +249,11 @@ body {
   color: var(--color-leaf-dark);
 }
 
-/* ── Scrollbar ── */
+/* ── Scrollbar — hidden (XP bar replaces it) ── */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
-::-webkit-scrollbar-track {
-  background: var(--color-leaf-dark);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-leaf-light);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold-dim);
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
