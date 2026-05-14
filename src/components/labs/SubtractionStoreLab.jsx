@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useStore from '../../store/useStore';
 
 /**
  * SubtractionStoreLab - Grade 3 Math: Real-world Subtraction
@@ -34,6 +35,7 @@ const SubtractionStoreLab = ({ onQuestComplete }) => {
     } else if (givenChange > correctChange) {
       // Gentle feedback: reset if overpaid
       setRekMood('oops');
+      useStore.getState().setRetryModal(true); // Trigger global retry modal
       const timer = setTimeout(() => {
         setGivenChange(0);
         setRekMood('thinking');

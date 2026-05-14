@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useStore from '../../store/useStore';
 
 /**
  * AdditionPairsLab - Grade 1 Math: Basic Addition Pairs
@@ -32,6 +33,7 @@ const AdditionPairsLab = ({ onQuestComplete }) => {
     } else if (blobs > target) {
       // Gentle feedback: reset if overfilled
       setRekMood('oops');
+      useStore.getState().setRetryModal(true); // Trigger global retry modal
       const timer = setTimeout(() => {
         setBlobs(initialBlobs);
         setRekMood('thinking');

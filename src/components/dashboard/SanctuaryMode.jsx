@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Heart, Leaf } from 'lucide-react'
 import useStore from '../../store/useStore'
 
 /**
@@ -78,7 +79,15 @@ export default function SanctuaryMode() {
         <div
           className={`absolute h-32 w-32 rounded-full bg-gradient-to-br from-[#81E6D9]/30 to-[#68D391]/15 transition-transform duration-[4000ms] ease-in-out sm:h-40 sm:w-40 ${circleScale[phase]}`}
         />
-        <span className="absolute text-4xl font-light tracking-widest text-[#718096] sm:text-5xl">
+        {/* Mascot inside the circle */}
+        <div className={`absolute transition-all duration-[4000ms] ease-in-out ${circleScale[phase]}`}>
+          <img 
+            src="/placeholder-mascot.png" 
+            alt="Calm Mascot" 
+            className="w-24 h-24 sm:w-32 sm:h-32 opacity-80"
+          />
+        </div>
+        <span className="absolute text-4xl font-light tracking-widest text-white drop-shadow-md sm:text-5xl">
           {count}
         </span>
       </div>
@@ -90,14 +99,14 @@ export default function SanctuaryMode() {
       <p className="mb-10 text-sm tracking-wider text-[#A0AEC0]">
         You're safe here. Take your time.
       </p>
-
       {/* Exit button */}
       <button
         id="exit-sanctuary-btn"
         onClick={toggleSanctuary}
-        className="rounded-2xl border border-[#E8E5DF] bg-[#F4F7F6] px-6 py-3 text-sm font-semibold tracking-wider text-[#4A5568] transition-all duration-300 hover:bg-[#E8F4F8] hover:shadow-md"
+        className="flex items-center gap-2 rounded-2xl border border-[#E8E5DF] bg-white px-8 py-4 text-sm font-bold tracking-widest uppercase text-[#4A5568] transition-all duration-300 hover:shadow-xl active:scale-95"
       >
-        🌿 I'm ready to continue
+        <Leaf className="w-4 h-4 text-[#81E6D9]" />
+        I'm ready to continue
       </button>
     </div>
   )

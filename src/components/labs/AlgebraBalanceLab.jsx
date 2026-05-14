@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useStore from '../../store/useStore';
 
 /**
  * AlgebraBalanceLab - Grade 7/8 Math: Multi-step Algebra (Solving for X)
@@ -47,6 +48,7 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
       }
     } else {
       setRekMood('oops');
+      useStore.getState().setRetryModal(true); // Trigger global retry modal
       setMessage('Oops! The scale is tipping. Try doing the same to both sides!');
     }
   }, [leftX, leftUnits, rightUnits, interactionCount, isSolved, onQuestComplete]);
