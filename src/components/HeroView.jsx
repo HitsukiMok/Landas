@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom'
+
 /**
  * HeroView — State A: Split layout with massive LANDAS title on the
  * left and chameleon mascot on the right.
  */
 export default function HeroView({ onSignUp }) {
+  const navigate = useNavigate()
   return (
     <section
       id="hero"
@@ -23,7 +26,7 @@ export default function HeroView({ onSignUp }) {
 
           <div className="delay-300 animate-fade-in-up mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <button
-              onClick={onSignUp}
+              onClick={() => navigate('/dashboard')}
               id="hero-start-btn"
               className="group inline-flex items-center gap-2 rounded-2xl bg-gold px-8 py-3.5 text-base font-bold tracking-wider text-leaf-dark shadow-lg transition-all duration-300 hover:bg-gold-light hover:shadow-[0_4px_24px_rgba(245,214,35,0.3)]"
             >

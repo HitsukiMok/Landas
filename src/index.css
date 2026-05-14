@@ -100,6 +100,21 @@ body {
   animation: leaf-float-1 9s ease-in-out infinite reverse;
 }
 
+/* ── Dashboard: Float Animation ── */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 3s ease-in-out infinite;
+}
+
 /* ── Gentle Animations ── */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
