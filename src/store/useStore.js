@@ -93,6 +93,11 @@ const useStore = create((set, get) => ({
   currentBiome: 'Ocean',
   setBiome: (biome) => set({ currentBiome: biome }),
 
+  // ── Authentication ──
+  isAuthenticated: false,
+  login: () => set({ isAuthenticated: true }),
+  logout: () => set({ isAuthenticated: false, xp: 0 }), // Reset XP on logout for demo
+
   // ── Sanctuary Mode ──
   sanctuaryActive: false,
   toggleSanctuary: () =>

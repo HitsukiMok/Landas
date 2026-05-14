@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useStore from '../store/useStore'
 
 /**
  * SignUpView — State B: Split layout with mascot on the left
@@ -7,11 +9,14 @@ import { useState } from 'react'
 export default function SignUpView() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const login = useStore((s) => s.login)
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // TODO: wire up sign-up logic
-    console.log('Sign up:', { email, password })
+    // Simulated sign-up logic
+    login()
+    navigate('/dashboard')
   }
 
   return (
@@ -130,6 +135,13 @@ export default function SignUpView() {
                 />
               </svg>
               Continue with Google
+            </button>
+
+            <button
+              onClick={() => navigate('/login')}
+              className="mt-6 w-full text-center text-[10px] font-black tracking-[0.15em] uppercase text-gold/60 hover:text-gold transition-colors"
+            >
+              Already an Explorer? Login
             </button>
           </div>
         </div>

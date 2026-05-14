@@ -6,13 +6,13 @@ import useStore from '../../store/useStore';
  * Features a zero-penalty loop with interactive shell collection.
  */
 const CoralGatheringLab = ({ onQuestComplete }) => {
-  const [target, setTarget] = useState(5);
+  const [target, setTarget] = useState(6);
   const [basketCount, setBasketCount] = useState(0);
   const [shells, setShells] = useState([]);
   const [isSolved, setIsSolved] = useState(false);
   const [rekMood, setRekMood] = useState('thinking'); // thinking, cheering, oops
   const [interactionCount, setInteractionCount] = useState(0);
-  
+
   const startTime = useRef(Date.now());
   const setRetryModal = useStore((s) => s.setRetryModal);
 
@@ -34,7 +34,7 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
     if (basketCount === target && !isSolved) {
       setIsSolved(true);
       setRekMood('cheering');
-      
+
       const timeSpent = Math.floor((Date.now() - startTime.current) / 1000);
       if (onQuestComplete) {
         onQuestComplete({ timeSpent, interactionCount, energyLevel: 'Low Energy' });
@@ -51,7 +51,7 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
 
   const toggleShell = (id) => {
     if (isSolved) return;
-    
+
     setInteractionCount(prev => prev + 1);
     setShells(prev => prev.map(s => {
       if (s.id === id) {
@@ -76,7 +76,7 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
 
       {/* Main Play Area */}
       <div className="relative w-full aspect-square bg-[#F4F7F6] rounded-2xl border-2 border-dashed border-[#B2D8E8] mb-6 overflow-hidden">
-        
+
         {/* Scattered Shells (Top Area) */}
         <div className="absolute top-0 left-0 w-full h-1/2 p-4">
           {shells.filter(s => !s.inBasket).map(shell => (
@@ -84,10 +84,10 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
               key={shell.id}
               onClick={() => toggleShell(shell.id)}
               className="absolute w-12 h-12 flex items-center justify-center text-3xl animate-float-gentle hover:scale-110 transition-transform cursor-pointer filter drop-shadow-sm"
-              style={{ 
-                left: `${shell.x}%`, 
+              style={{
+                left: `${shell.x}%`,
                 top: `${shell.y}%`,
-                transform: `rotate(${shell.rotation}deg)` 
+                transform: `rotate(${shell.rotation}deg)`
               }}
             >
               🐚
@@ -121,8 +121,8 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
         {/* Ambient Sea Particles */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           {[...Array(5)].map((_, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="absolute w-2 h-2 bg-white rounded-full animate-float-gentle"
               style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`, animationDelay: `${i * 0.5}s` }}
             />
@@ -137,9 +137,9 @@ const CoralGatheringLab = ({ onQuestComplete }) => {
         </div>
         <div className="flex-1">
           <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
-            {rekMood === 'thinking' ? "Can you help me find exactly " + target + " shells for our collection?" : 
-             rekMood === 'cheering' ? "Great counting! We have enough shells now." : 
-             "Oops! That's a few too many. Let's take some back out."}
+            {rekMood === 'thinking' ? "Can you help me find exactly " + target + " shells for our collection?" :
+              rekMood === 'cheering' ? "Great counting! We have enough shells now." :
+                "Oops! That's a few too many. Let's take some back out."}
           </p>
         </div>
       </div>
