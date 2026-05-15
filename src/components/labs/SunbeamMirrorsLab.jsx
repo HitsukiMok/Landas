@@ -42,11 +42,11 @@ const SunbeamMirrorsLab = ({ onQuestComplete }) => {
   const reflectedAngle = angle * 2; 
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Geometry & Physics Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Illuminate the Dark Cave!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Geometry & Physics Lab</h2>
+        <p className="text-sm font-bold text-white/90">Illuminate the Dark Cave!</p>
       </div>
 
       {/* Main Play Area */}
@@ -107,9 +107,9 @@ const SunbeamMirrorsLab = ({ onQuestComplete }) => {
       {/* Angle Slider */}
       <div className="w-full space-y-4 mb-8 px-4">
         <div className="flex justify-between items-center">
-          <span className="text-[10px] font-black tracking-widest text-[#718096] uppercase">Mirror Angle</span>
+          <span className="text-[10px] font-black tracking-widest text-white/60 uppercase">Mirror Angle</span>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-black text-[#4A5568]">{angle}°</span>
+            <span className="text-xs font-black text-white/90">{angle}°</span>
             <span className="text-[8px] font-bold text-[#A0AEC0] uppercase">Target: {TARGET_ANGLE}°</span>
           </div>
         </div>
@@ -124,12 +124,12 @@ const SunbeamMirrorsLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl">
           {isSolved ? '✨' : '💡'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {isSolved 
               ? "Brilliant! You've illuminated the hidden cave treasures." 
               : "Angles are like bouncing a ball! Can you rotate the mirror to 45 degrees?"}

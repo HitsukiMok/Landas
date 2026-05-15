@@ -80,15 +80,15 @@ const WordCurrentsLab = ({ onQuestComplete }) => {
   }, [placedWords]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF] animate-fade-in">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20 animate-fade-in">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-[10px] font-black tracking-[0.2em] text-[#718096] uppercase mb-1">Language Arts Lab</h2>
-        <p className="text-sm font-bold text-[#4A5568]">Build the Word Bridge!</p>
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-white/60 uppercase mb-1">Language Arts Lab</h2>
+        <p className="text-sm font-bold text-white/90">Build the Word Bridge!</p>
       </div>
 
       {/* Main Play Area */}
-      <div className="relative w-full h-64 bg-[#E8F4F8] rounded-2xl border-2 border-[#B2D8E8] mb-8 overflow-hidden">
+      <div className="relative w-full h-64 bg-white/10 rounded-2xl border-2 border-white/30 mb-8 overflow-hidden">
         
         {/* The Gap (Ocean) */}
         <div className="absolute inset-0 flex items-center justify-center">
@@ -103,11 +103,11 @@ const WordCurrentsLab = ({ onQuestComplete }) => {
               onClick={() => handleRemoveWord(i)}
               className={`
                 w-24 h-14 rounded-2xl border-2 border-dashed flex items-center justify-center transition-all duration-500
-                ${word ? 'bg-white border-[#81E6D9] shadow-md scale-105 cursor-pointer' : 'border-[#B2D8E8] bg-white/20'}
+                ${word ? 'bg-gradient-to-r from-[#81E6D9] to-[#68D391] border-[#81E6D9] shadow-md scale-105 cursor-pointer' : 'border-white/30 bg-white/20'}
               `}
             >
               {word && (
-                <span className="text-xs font-bold text-[#4A5568] tracking-widest uppercase animate-fade-in">
+                <span className="text-xs font-bold text-[#0f2a24] tracking-widest uppercase animate-fade-in">
                   {word}
                 </span>
               )}
@@ -143,7 +143,7 @@ const WordCurrentsLab = ({ onQuestComplete }) => {
           <button
             key={word}
             onClick={() => handleWordClick(word, i)}
-            className="px-6 py-3 bg-white border-2 border-[#E8E5DF] rounded-full text-xs font-black tracking-widest text-[#4A5568] uppercase shadow-sm hover:border-[#81E6D9] hover:shadow-md active:scale-95 transition-all animate-float-gentle"
+            className="px-6 py-3 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-full text-xs font-black tracking-widest text-white uppercase shadow-sm hover:border-[#81E6D9] hover:shadow-md active:scale-95 transition-all animate-float-gentle"
             style={{ animationDelay: `${i * 0.3}s` }}
           >
             {word}
@@ -152,12 +152,12 @@ const WordCurrentsLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Rek Mascot coaching */}
-      <div className="flex items-center gap-4 w-full bg-[#F4F7F6] p-4 rounded-2xl border border-[#E8E5DF]">
+      <div className="flex items-center gap-4 w-full bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20">
         <div className="text-3xl animate-bounce">
           {rekMood === 'thinking' ? '💭' : rekMood === 'cheering' ? '🌟' : '😮'}
         </div>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-wide text-[#4A5568] leading-relaxed">
+          <p className="text-xs font-bold tracking-wide text-white/90 leading-relaxed">
             {rekMood === 'thinking' ? "Help the fish cross by putting the words in the right order!" : 
              rekMood === 'cheering' ? "Excellent! You built a perfect sentence bridge." : 
              "Almost! Let's try rearranging the words to make more sense."}

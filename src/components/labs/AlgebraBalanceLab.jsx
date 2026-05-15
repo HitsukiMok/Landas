@@ -86,9 +86,9 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-lg mx-auto shadow-sm border border-[#E8E5DF] scale-95 sm:scale-100">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-lg mx-auto shadow-sm border border-white/20 scale-95 sm:scale-100">
       {/* Real-time Equation Display */}
-      <div className="mb-6 px-6 py-2 bg-white rounded-full border border-[#FED7D7] shadow-inner font-mono text-lg font-bold text-[#4A5568] tracking-widest animate-pulse">
+      <div className="mb-6 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-[#FED7D7] shadow-inner font-mono text-lg font-bold text-white/90 tracking-widest animate-pulse">
         {leftX}X {leftUnits > 0 && `+ ${leftUnits}`} = {rightUnits}
       </div>
 
@@ -109,12 +109,12 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
           {/* Left Plate */}
           <div className="absolute left-4 top-2 w-32 flex flex-col items-center">
             <div className="h-16 w-1 bg-[#718096]/40" />
-            <div className="min-h-[80px] w-32 bg-[#F4F7F6] border-t-4 border-[#718096] rounded-b-2xl flex flex-wrap justify-center content-start p-2 gap-1 shadow-sm">
+            <div className="min-h-[80px] w-32 bg-white/10 backdrop-blur-sm border-t-4 border-[#718096] rounded-b-2xl flex flex-wrap justify-center content-start p-2 gap-1 shadow-sm">
               {[...Array(leftX)].map((_, i) => (
                 <div key={`x-${i}`} className="w-8 h-10 bg-[#FED7D7] border-2 border-[#9B2C2C]/20 rounded-lg flex items-center justify-center font-bold text-[#9B2C2C] text-xs">X</div>
               ))}
               {[...Array(leftUnits)].map((_, i) => (
-                <div key={`u-l-${i}`} className="w-5 h-5 bg-white border border-[#E8E5DF] rounded flex items-center justify-center text-[8px] font-bold text-[#718096]">1</div>
+                <div key={`u-l-${i}`} className="w-5 h-5 bg-white/10 backdrop-blur-sm border border-white/20 rounded flex items-center justify-center text-[8px] font-bold text-white/60">1</div>
               ))}
             </div>
           </div>
@@ -122,9 +122,9 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
           {/* Right Plate */}
           <div className="absolute right-4 top-2 w-32 flex flex-col items-center">
             <div className="h-16 w-1 bg-[#718096]/40" />
-            <div className="min-h-[80px] w-32 bg-[#F4F7F6] border-t-4 border-[#718096] rounded-b-2xl flex flex-wrap justify-center content-start p-2 gap-1 shadow-sm">
+            <div className="min-h-[80px] w-32 bg-white/10 backdrop-blur-sm border-t-4 border-[#718096] rounded-b-2xl flex flex-wrap justify-center content-start p-2 gap-1 shadow-sm">
               {[...Array(rightUnits)].map((_, i) => (
-                <div key={`u-r-${i}`} className="w-5 h-5 bg-white border border-[#E8E5DF] rounded flex items-center justify-center text-[8px] font-bold text-[#718096]">1</div>
+                <div key={`u-r-${i}`} className="w-5 h-5 bg-white/10 backdrop-blur-sm border border-white/20 rounded flex items-center justify-center text-[8px] font-bold text-white/60">1</div>
               ))}
             </div>
           </div>
@@ -143,14 +143,14 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
         <button
           onClick={handleSubtractOne}
           disabled={isSolved}
-          className="p-3 bg-white border-2 border-[#FED7D7] rounded-xl hover:bg-[#FED7D7]/20 transition-all text-[10px] font-black text-[#4A5568] tracking-widest uppercase"
+          className="p-3 bg-white/10 backdrop-blur-sm border-2 border-[#FED7D7] rounded-xl hover:bg-[#FED7D7]/20 transition-all text-[10px] font-black text-white/90 tracking-widest uppercase"
         >
           - 1 (Both)
         </button>
         <button
           onClick={handleAddOne}
           disabled={isSolved}
-          className="p-3 bg-white border-2 border-[#E8E5DF] rounded-xl hover:bg-[#F4F7F6] transition-all text-[10px] font-black text-[#4A5568] tracking-widest uppercase"
+          className="p-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all text-[10px] font-black text-white/90 tracking-widest uppercase"
         >
           + 1 (Both)
         </button>
@@ -164,17 +164,17 @@ const AlgebraBalanceLab = ({ onQuestComplete }) => {
       </div>
 
       {/* Success / Rek Area */}
-      <div className="w-full flex items-center gap-4 px-6 py-4 bg-white rounded-2xl shadow-sm border border-[#E8E5DF]">
+      <div className="w-full flex items-center gap-4 px-6 py-4 bg-white rounded-2xl shadow-sm border border-white/20">
         <div className="text-4xl animate-bounce">
           {rekMood === 'thinking' && '🦎'}
           {rekMood === 'cheering' && '🦖'}
           {rekMood === 'oops' && '🐢'}
         </div>
         <div className="flex flex-col">
-          <span className="text-xs font-bold tracking-wide text-[#4A5568]">
+          <span className="text-xs font-bold tracking-wide text-white/90">
             {isSolved ? "Incredible! X equals 3!" : "Keep the scale balanced..."}
           </span>
-          <span className="text-[10px] tracking-wide text-[#718096]">
+          <span className="text-[10px] tracking-wide text-white/60">
             {isSolved ? "You solved the multi-step puzzle!" : "Every move affects both sides."}
           </span>
         </div>

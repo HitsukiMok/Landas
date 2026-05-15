@@ -3,7 +3,7 @@ import useStore, { selectLevel, selectTitle, selectXPInCurrentLevel } from '../.
 
 /**
  * QuestSuccessModal - Celebratory feedback when a quest is completed.
- * Features an animated XP progress bar and level-up state.
+ * Refined for a smaller, glassmorphic layout.
  */
 const QuestSuccessModal = () => {
   const active = useStore((s) => s.successModalActive);
@@ -20,7 +20,6 @@ const QuestSuccessModal = () => {
 
   useEffect(() => {
     if (active) {
-      // Small delay to let the modal animate in before bar fills
       const timer = setTimeout(() => {
         setDisplayXP(xpInLevel);
       }, 500);
@@ -33,50 +32,50 @@ const QuestSuccessModal = () => {
   if (!active) return null;
 
   return (
-    <div className="fixed inset-0 z-[110] flex items-center justify-center bg-[#F4F7F6]/80 backdrop-blur-sm p-6 animate-fade-in">
-      <div className="bg-[#FDFBF7] rounded-3xl p-8 max-w-sm w-full shadow-2xl border border-[#E8E5DF] flex flex-col items-center text-center animate-fade-in-scale">
+    <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-fade-in">
+      <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-6 max-w-xs w-full shadow-2xl border border-white/20 flex flex-col items-center text-center animate-fade-in-scale text-white">
         
         {/* Success Icon / Level Up Indicator */}
         <div className={`
-          w-24 h-24 rounded-full flex items-center justify-center text-5xl mb-6 shadow-inner transition-colors duration-700
-          ${didLevelUp ? 'bg-[#81E6D9]/30' : 'bg-[#F4F7F6]'}
+          w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4 shadow-inner transition-colors duration-700 border border-white/10
+          ${didLevelUp ? 'bg-[#81E6D9]/20' : 'bg-black/20'}
         `}>
           {didLevelUp ? '🎊' : '✨'}
         </div>
 
         {didLevelUp ? (
-          <div className="animate-bounce mb-2">
-            <h2 className="text-2xl font-black tracking-widest text-[#4A5568] uppercase">Level Up!</h2>
-            <p className="text-[#81E6D9] font-bold text-sm tracking-widest">New Milestone Reached</p>
+          <div className="animate-bounce mb-1">
+            <h2 className="text-xl font-black tracking-widest uppercase">Level Up!</h2>
+            <p className="text-[#81E6D9] font-bold text-[10px] tracking-widest">New Milestone Reached</p>
           </div>
         ) : (
-          <h3 className="text-xl font-bold tracking-wide text-[#4A5568] mb-1">
+          <h3 className="text-lg font-bold tracking-wide mb-1">
             Quest Complete!
           </h3>
         )}
 
-        <div className="text-3xl font-black text-[#81E6D9] mb-6 animate-pulse">
+        <div className="text-2xl font-black text-[#81E6D9] mb-5 animate-pulse drop-shadow-[0_0_10px_rgba(129,230,217,0.5)]">
           +{lastXPGained} XP
         </div>
 
         {/* Progression Info */}
-        <div className="w-full mb-8">
-          <div className="flex justify-between items-center mb-2 px-1">
-            <span className="text-[10px] font-black tracking-widest text-[#718096] uppercase">Level {level}</span>
-            <span className="text-[10px] font-bold tracking-wide text-[#A0AEC0]">{xpInLevel}/50 XP</span>
+        <div className="w-full mb-6">
+          <div className="flex justify-between items-center mb-1.5 px-0.5">
+            <span className="text-[9px] font-black tracking-widest text-white/60 uppercase">Level {level}</span>
+            <span className="text-[9px] font-bold tracking-wide text-white/80">{xpInLevel}/50 XP</span>
           </div>
           
           {/* Progress Bar Container */}
-          <div className="h-4 w-full bg-[#E8E5DF] rounded-full overflow-hidden shadow-inner">
+          <div className="h-2 w-full bg-black/30 rounded-full overflow-hidden shadow-inner border border-white/5">
             <div 
-              className="h-full bg-gradient-to-r from-[#81E6D9] to-[#68D391] transition-all duration-[1500ms] ease-out rounded-full"
+              className="h-full bg-gradient-to-r from-[#81E6D9] to-[#68D391] transition-all duration-[1500ms] ease-out rounded-full shadow-[0_0_8px_rgba(129,230,217,0.5)]"
               style={{ width: `${(displayXP / 50) * 100}%` }}
             />
           </div>
           
           {didLevelUp && (
-            <p className="mt-4 text-xs font-bold tracking-wide text-[#4A5568] animate-fade-in">
-              Current Title: <span className="text-[#718096] italic">{title}</span>
+            <p className="mt-3 text-[10px] font-bold tracking-wide text-white/80 animate-fade-in">
+              Current Title: <span className="text-[#81E6D9] italic">{title}</span>
             </p>
           )}
         </div>
@@ -84,9 +83,9 @@ const QuestSuccessModal = () => {
         {/* Action Button */}
         <button
           onClick={() => setSuccessModal(false)}
-          className="w-full py-4 bg-white border-2 border-[#E8E5DF] rounded-2xl text-xs font-bold tracking-[0.2em] text-[#4A5568] uppercase hover:bg-[#F4F7F6] hover:border-[#81E6D9] transition-all duration-300"
+          className="w-full py-3 bg-white/10 border border-white/20 rounded-xl text-[10px] font-black tracking-[0.2em] text-white uppercase hover:bg-white/20 transition-all duration-300"
         >
-          Back to Quest Map
+          Back to Map
         </button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import useStore from '../store/useStore';
 
 // 1. Create the Context
 const ThemeContext = createContext();
@@ -86,6 +87,9 @@ export const PreferencesPanel = () => {
     animations, setAnimations 
   } = useTheme();
 
+  const isDarkMode = useStore((s) => s.isDarkMode);
+  const toggleDarkMode = useStore((s) => s.toggleDarkMode);
+
   const buttonBase = "px-4 py-3 rounded-xl text-[11px] font-black tracking-widest uppercase transition-all duration-300 border-2 flex-1 text-center";
   const activeStyle = "bg-white text-[#4A5568] border-white shadow-lg scale-105 z-10";
   const inactiveStyle = "bg-black/20 text-white border-transparent hover:bg-black/30 opacity-60";
@@ -150,6 +154,25 @@ export const PreferencesPanel = () => {
             className={`${buttonBase} ${animations === 'reduced' ? activeStyle : inactiveStyle}`}
           >
             Reduced
+          </button>
+        </div>
+      </div>
+
+      {/* Dark Mode Toggle */}
+      <div className="space-y-3">
+        <label className="text-[10px] font-black uppercase tracking-[0.15em] text-[#81E6D9]">Brightness</label>
+        <div className="flex gap-2 bg-black/20 p-1.5 rounded-2xl">
+          <button 
+            onClick={() => { if (isDarkMode) toggleDarkMode(); }}
+            className={`${buttonBase} ${!isDarkMode ? activeStyle : inactiveStyle}`}
+          >
+            ☀️ Light
+          </button>
+          <button 
+            onClick={() => { if (!isDarkMode) toggleDarkMode(); }}
+            className={`${buttonBase} ${isDarkMode ? activeStyle : inactiveStyle}`}
+          >
+            🌙 Dark
           </button>
         </div>
       </div>

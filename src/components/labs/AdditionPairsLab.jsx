@@ -50,19 +50,19 @@ const AdditionPairsLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-md mx-auto shadow-sm border border-[#E8E5DF]">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-md mx-auto shadow-sm border border-white/20">
       {/* Header / Target Indicator */}
       <div className="mb-4 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#C6F6D5] text-3xl font-bold text-[#4A5568] shadow-inner mb-2">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#C6F6D5] text-3xl font-bold text-white/90 shadow-inner mb-2">
           {target}
         </div>
-        <p className="text-xs font-semibold tracking-widest text-[#718096] uppercase leading-relaxed">
+        <p className="text-xs font-semibold tracking-widest text-white/60 uppercase leading-relaxed">
           Target Goal
         </p>
       </div>
 
       {/* Main Lab Area */}
-      <div className="relative w-full aspect-square bg-[#F4F7F6] rounded-2xl border-2 border-dashed border-[#C6F6D5] flex items-end justify-center p-4 mb-4 overflow-hidden">
+      <div className="relative w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl border-2 border-dashed border-[#C6F6D5] flex items-end justify-center p-4 mb-4 overflow-hidden">
         {/* The Jar Container */}
         <div className="relative w-48 h-64 border-4 border-[#718096]/20 border-t-0 rounded-b-3xl flex flex-wrap-reverse content-start justify-center p-2 gap-2 bg-white/30 backdrop-blur-sm z-10">
           {[...Array(blobs)].map((_, i) => (
@@ -85,7 +85,7 @@ const AdditionPairsLab = ({ onQuestComplete }) => {
           onClick={addBlob}
           disabled={isSolved || rekMood === 'oops'}
           className={`
-            group relative flex items-center justify-center w-full py-4 rounded-2xl text-[#4A5568] font-bold tracking-wide transition-all duration-300
+            group relative flex items-center justify-center w-full py-4 rounded-2xl text-white/90 font-bold tracking-wide transition-all duration-300
             ${isSolved 
               ? 'bg-[#C6F6D5] cursor-default' 
               : 'bg-white border-2 border-[#C6F6D5] hover:bg-[#C6F6D5]/20 active:scale-95'}
@@ -101,13 +101,13 @@ const AdditionPairsLab = ({ onQuestComplete }) => {
         </button>
 
         {/* Rek the Buddy */}
-        <div className="flex items-center gap-4 px-6 py-3 bg-white rounded-full shadow-sm border border-[#E8E5DF]">
+        <div className="flex items-center gap-4 px-6 py-3 bg-white rounded-full shadow-sm border border-white/20">
           <div className="text-3xl animate-bounce">
             {rekMood === 'thinking' && '🦎'}
             {rekMood === 'cheering' && '🦖'}
             {rekMood === 'oops' && '🐢'}
           </div>
-          <div className="text-xs font-medium text-[#718096] tracking-wide leading-relaxed">
+          <div className="text-xs font-medium text-white/60 tracking-wide leading-relaxed">
             {rekMood === 'thinking' && "Let's fill the jar!"}
             {rekMood === 'cheering' && "Perfect! You did it!"}
             {rekMood === 'oops' && "A bit too many! Let's try again."}

@@ -58,28 +58,28 @@ const SubtractionStoreLab = ({ onQuestComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-[#FDFBF7] rounded-3xl w-full max-w-lg mx-auto shadow-sm border border-[#E8E5DF]">
+    <div className="flex flex-col items-center justify-center p-4 bg-transparent text-white rounded-3xl w-full max-w-lg mx-auto shadow-sm border border-white/20">
       {/* Header Area */}
       <div className="w-full flex justify-between items-center mb-4 px-4">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#E8F4F8] flex items-center justify-center text-3xl shadow-inner mb-1">
+          <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl shadow-inner mb-1">
             🪙
           </div>
-          <p className="text-[10px] font-bold tracking-widest text-[#718096] uppercase">Pay: 10</p>
+          <p className="text-[10px] font-bold tracking-widest text-white/60 uppercase">Pay: 10</p>
         </div>
         
-        <div className="text-2xl text-[#718096] opacity-30">→</div>
+        <div className="text-2xl text-white/60 opacity-30">→</div>
         
         <div className="text-center">
           <div className="w-16 h-16 rounded-2xl bg-[#FEFCBF] flex items-center justify-center text-3xl shadow-inner mb-1">
             🍎
           </div>
-          <p className="text-[10px] font-bold tracking-widest text-[#718096] uppercase">Cost: 6</p>
+          <p className="text-[10px] font-bold tracking-widest text-white/60 uppercase">Cost: 6</p>
         </div>
       </div>
 
       {/* Counter Top Area */}
-      <div className="relative w-full h-40 bg-[#F4F7F6] rounded-2xl border-b-8 border-[#718096]/10 flex flex-col items-center justify-center p-4 mb-4">
+      <div className="relative w-full h-40 bg-white/10 backdrop-blur-sm rounded-2xl border-b-8 border-[#718096]/10 flex flex-col items-center justify-center p-4 mb-4">
         <div className="text-xs font-semibold tracking-wider text-[#A0AEC0] uppercase mb-4">Customer's Hand</div>
         
         <div className="flex flex-wrap justify-center gap-3 min-h-[60px]">
@@ -105,21 +105,21 @@ const SubtractionStoreLab = ({ onQuestComplete }) => {
           className="flex flex-col items-center justify-center gap-2 p-4 bg-white border-2 border-[#FEFCBF] rounded-2xl hover:bg-[#FEFCBF]/20 transition-all active:scale-95 disabled:opacity-50"
         >
           <div className="w-10 h-10 rounded-full bg-[#FEFCBF] flex items-center justify-center text-[#975A16] font-bold">+1</div>
-          <span className="text-[10px] font-bold tracking-widest text-[#718096] uppercase">Add Coin</span>
+          <span className="text-[10px] font-bold tracking-widest text-white/60 uppercase">Add Coin</span>
         </button>
 
         <button
           onClick={removeCoin}
           disabled={isSolved || givenChange <= 0 || rekMood === 'oops'}
-          className="flex flex-col items-center justify-center gap-2 p-4 bg-white border-2 border-[#E8E5DF] rounded-2xl hover:bg-[#F4F7F6] transition-all active:scale-95 disabled:opacity-50"
+          className="flex flex-col items-center justify-center gap-2 p-4 bg-white border-2 border-white/20 rounded-2xl hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95 disabled:opacity-50"
         >
-          <div className="w-10 h-10 rounded-full bg-[#F4F7F6] flex items-center justify-center text-[#718096] font-bold">-1</div>
-          <span className="text-[10px] font-bold tracking-widest text-[#718096] uppercase">Take Back</span>
+          <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/60 font-bold">-1</div>
+          <span className="text-[10px] font-bold tracking-widest text-white/60 uppercase">Take Back</span>
         </button>
       </div>
 
       {/* Success Indicator / Rek */}
-      <div className="w-full flex items-center justify-between gap-4 px-6 py-4 bg-white rounded-2xl shadow-sm border border-[#E8E5DF]">
+      <div className="w-full flex items-center justify-between gap-4 px-6 py-4 bg-white rounded-2xl shadow-sm border border-white/20">
         <div className="flex items-center gap-4">
           <div className="text-4xl animate-bounce">
             {rekMood === 'thinking' && '🦎'}
@@ -127,12 +127,12 @@ const SubtractionStoreLab = ({ onQuestComplete }) => {
             {rekMood === 'oops' && '🐢'}
           </div>
           <div className="flex flex-col">
-            <span className="text-xs font-bold tracking-wide text-[#4A5568]">
+            <span className="text-xs font-bold tracking-wide text-white/90">
               {rekMood === 'thinking' && "Calculating change..."}
               {rekMood === 'cheering' && "Great job! Math master!"}
               {rekMood === 'oops' && "Oops, too much change!"}
             </span>
-            <span className="text-[10px] tracking-wide text-[#718096]">
+            <span className="text-[10px] tracking-wide text-white/60">
               {rekMood === 'thinking' && "10 minus 6 is..."}
               {rekMood === 'cheering' && "The customer is happy!"}
               {rekMood === 'oops' && "Let's count again."}

@@ -30,9 +30,8 @@ function Section({ children, className = '', id }) {
     <section
       id={id}
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      } ${className}`}
+      className={`transition-all duration-700 ease-out ${inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        } ${className}`}
     >
       {children}
     </section>
@@ -86,41 +85,44 @@ const barriers = [
   },
 ]
 
+const pillarIcons = [
+  <svg key="p1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88" /></svg>,
+  <svg key="p2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 18h4v-4H4v4zM10 18h4v-8h-4v8zM16 18h4V6h-4v12z" /></svg>,
+  <svg key="p3" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M12 8v4M12 16h.01" strokeLinecap="round" /></svg>,
+  <svg key="p4" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10" strokeLinejoin="round" /></svg>,
+  <svg key="p5" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 3v18h18" strokeLinecap="round" /><path d="M7 16l4-4 4 2 5-6" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+]
+
 const pillars = [
   {
     num: '01',
     title: 'Gamified Quest Integration',
     description:
       'We transform abstract concepts into Life Quests. By solving problems in simulated, relatable environments, students move away from rote memorization and toward practical application. Every lesson becomes a mission with a clear purpose.',
-    icon: '🎮',
   },
   {
     num: '02',
     title: 'Executive Function Scaffolding',
     description:
       'To combat "time blindness" and initiation paralysis, Landas features the Task Shredder — decomposing massive assignments into tiny, actionable bites, while Time Visualization tools use disappearing color discs to make the passage of time tangible.',
-    icon: '🧩',
   },
   {
     num: '03',
     title: 'Adaptive Sensory & Emotional Regulation',
     description:
       'Our AI companion, Rek, monitors for signs of cognitive load. Before a student reaches burnout, Rek intervenes, guiding them to the Sanctuary for a 2-minute breathing exercise or a calming mini-game to reset their mental bandwidth.',
-    icon: '🦎',
   },
   {
     num: '04',
     title: 'Energy Management & Multi-Modal Expression',
     description:
       'Our Energy Check-in adjusts difficulty based on a student\'s current mental state. Students can express knowledge through speech, drawing, or text — ensuring grades reflect intelligence, not just typing speed.',
-    icon: '⚡',
   },
   {
     num: '05',
     title: 'Insightful Progress Tracking',
     description:
       'We provide parents and educators with a Learning Profile that looks beyond grades. By tracking focus patterns and sensory preferences, Landas provides the data needed for better advocacy and personalized support.',
-    icon: '📊',
   },
 ]
 
@@ -240,7 +242,7 @@ export default function AboutView() {
                     {barrier.icon}
                   </div>
                   <h3 className="text-lg font-bold tracking-wide text-gold">{barrier.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gold/70">{barrier.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-gold/70 text-justify">{barrier.description}</p>
                 </div>
               </div>
             ))}
@@ -262,14 +264,7 @@ export default function AboutView() {
             </p>
           </div>
 
-          <div className="mt-12 space-y-6">
-            {pillars.map((pillar, i) => {
-              const isEven = i % 2 === 0
-              return (
-                <PillarCard key={pillar.num} pillar={pillar} isEven={isEven} index={i} />
-              )
-            })}
-          </div>
+          <PillarCarousel />
         </Section>
 
         {/* ── Mission Statement ── */}
@@ -299,36 +294,142 @@ export default function AboutView() {
   )
 }
 
-/* ── Pillar Card sub-component ── */
-function PillarCard({ pillar, isEven, index }) {
-  const [ref, inView] = useInView()
+/* ── Pillar Carousel — Horizontal snap-scroll ── */
+function PillarCarousel() {
+  const scrollRef = useRef(null)
+  const [active, setActive] = useState(0)
+
+  const CARD_W = 576 // w-[36rem]
+  const GAP = 24    // gap-6
+
+  // Track which card is in view via scroll
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const index = Math.round(container.scrollLeft / (CARD_W + GAP))
+      setActive(Math.max(0, Math.min(index, pillars.length - 1)))
+    }
+
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToIndex = (index) => {
+    const container = scrollRef.current
+    if (!container) return
+    container.scrollTo({ left: index * (CARD_W + GAP), behavior: 'smooth' })
+  }
+
+  const goNext = () => scrollToIndex(Math.min(active + 1, pillars.length - 1))
+  const goPrev = () => scrollToIndex(Math.max(active - 1, 0))
+
+  // Number gradient colors per pillar
+  const numColors = [
+    'from-gold via-gold-soft to-moss',
+    'from-gold-soft via-gold to-fern',
+    'from-moss via-gold to-gold-soft',
+    'from-gold via-fern to-gold-soft',
+    'from-fern via-gold-soft to-gold',
+  ]
+
   return (
-    <div
-      ref={ref}
-      className={`group flex flex-col items-center gap-6 rounded-3xl border border-gold/10 bg-leaf-card/50 p-7 shadow-lg transition-all duration-500 hover:border-gold/20 hover:shadow-xl sm:p-8 lg:flex-row lg:gap-10 ${
-        inView
-          ? isEven
-            ? 'translate-x-0 opacity-100'
-            : 'translate-x-0 opacity-100'
-          : isEven
-          ? '-translate-x-8 opacity-0'
-          : 'translate-x-8 opacity-0'
-      }`}
-      style={{ transitionDelay: `${index * 80}ms` }}
-    >
-      {/* Number + Icon */}
-      <div className={`flex shrink-0 items-center gap-4 ${!isEven ? 'lg:order-2' : ''}`}>
-        <span className="text-5xl font-black text-leaf-light/30">{pillar.num}</span>
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gold/10 text-3xl transition-transform duration-300 group-hover:scale-110">
-          {pillar.icon}
-        </div>
+    <div className="mt-12">
+      {/* Hide scrollbar */}
+      <style>{`
+        .pillar-scroll::-webkit-scrollbar { display: none; }
+        .pillar-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+      `}</style>
+
+      {/* Scrollable track */}
+      <div
+        ref={scrollRef}
+        className="pillar-scroll flex gap-6 overflow-x-auto px-[calc(50%-18rem)] pb-4 snap-x snap-mandatory scroll-smooth"
+      >
+
+        {pillars.map((pillar, i) => (
+          <div
+            key={pillar.num}
+            className={`relative flex-shrink-0 w-[36rem] snap-center overflow-hidden rounded-3xl border bg-leaf-card/70 p-8 shadow-2xl backdrop-blur-sm transition-all duration-500 sm:p-10 ${
+              i === active
+                ? 'border-gold/20 scale-100 opacity-100'
+                : 'border-gold/5 scale-[0.95] opacity-50'
+            }`}
+          >
+            {/* Decorative corner glows */}
+            <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gold/5 blur-3xl" />
+            <div className="absolute -left-8 -bottom-8 h-24 w-24 rounded-full bg-leaf-light/10 blur-2xl" />
+
+            <div className="relative z-10">
+              {/* Number + Icon */}
+              <div className="mb-6 flex items-center gap-5">
+                <span
+                  className={`font-magical text-6xl font-bold italic sm:text-7xl bg-gradient-to-br ${numColors[i]} bg-clip-text text-transparent`}
+                  style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+                >
+                  {pillar.num}
+                </span>
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-gold/10 bg-gold/8 text-gold/70">
+                  {pillarIcons[i]}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="font-magical text-2xl font-bold italic tracking-wide text-gold sm:text-3xl">
+                {pillar.title}
+              </h3>
+
+              {/* Description — justified */}
+              <p className="mt-4 leading-relaxed text-gold/70 sm:text-lg" style={{ textAlign: 'justify' }}>
+                {pillar.description}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Content */}
-      <div className={`flex-1 text-center lg:text-left ${!isEven ? 'lg:order-1 lg:text-right' : ''}`}>
-        <h3 className="text-xl font-bold tracking-wide text-gold">{pillar.title}</h3>
-        <p className="mt-2 leading-relaxed text-gold/70">{pillar.description}</p>
+      {/* Controls row: arrows + dots */}
+      <div className="mt-6 flex items-center justify-center gap-6">
+        {/* Left arrow */}
+        <button
+          onClick={goPrev}
+          className="group flex h-10 w-10 items-center justify-center rounded-full border border-gold/10 bg-leaf-dark/60 text-gold/40 shadow-lg backdrop-blur-sm transition-all duration-500 hover:border-gold/25 hover:bg-leaf-dark/80 hover:text-gold/80 hover:shadow-[0_0_20px_rgba(212,185,106,0.1)]"
+          aria-label="Previous pillar"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="transition-transform duration-500 group-hover:-translate-x-0.5">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        {/* Indicator dots */}
+        <div className="flex items-center gap-2">
+          {pillars.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => scrollToIndex(i)}
+              className={`rounded-full transition-all duration-500 ${
+                i === active
+                  ? 'h-2.5 w-8 bg-gold/60'
+                  : 'h-2 w-2 bg-gold/15 hover:bg-gold/30'
+              }`}
+              aria-label={`Go to pillar ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Right arrow */}
+        <button
+          onClick={goNext}
+          className="group flex h-10 w-10 items-center justify-center rounded-full border border-gold/10 bg-leaf-dark/60 text-gold/40 shadow-lg backdrop-blur-sm transition-all duration-500 hover:border-gold/25 hover:bg-leaf-dark/80 hover:text-gold/80 hover:shadow-[0_0_20px_rgba(212,185,106,0.1)]"
+          aria-label="Next pillar"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="transition-transform duration-500 group-hover:translate-x-0.5">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
     </div>
   )
 }
+
